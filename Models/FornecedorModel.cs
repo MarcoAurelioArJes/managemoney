@@ -7,8 +7,9 @@ namespace managemoney.Models
 {
     public class FornecedorModel : BaseModel
     {
-        public string CpfCnpj { get; set; }
+        public int UsuarioID { get; set; }
         public string NomeFantasia { get; set; }
-        public CategoriaModel Categoria { get; set; }
+        public string CpfCnpj { get; set; }
+        public List<CategoriaFornecedorModel> CategoriasFornecedores { get; set; }
     }
 }

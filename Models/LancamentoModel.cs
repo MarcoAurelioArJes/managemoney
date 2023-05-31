@@ -8,7 +8,9 @@ namespace managemoney.Models
 {
     public class LancamentoModel : BaseModel
     {
-        public string Fornecedor { get; set; }
+        public UsuarioModel Usuario { get; set; }
+        public FornecedorModel Fornecedor { get; set; }
+        public CategoriaModel Categoria { get; set; }
         public decimal Valor { get; set; }
         public DateTime DataLancamento { get; set; }
         public TipoDeLancamentoEnum TipoDeLancamento { get; set; }

@@ -7,11 +7,13 @@ namespace managemoney.Models
 {
     public class MetasModel : BaseModel
     {
+        public UsuarioModel Usuario { get; set; }
         public bool RelacionarMesAnterior { get; set; }
         public bool RelacionarPorCategoria { get; set; }
         public CategoriaModel Categoria { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public decimal Valor { get; set; }
+        public bool Finalizada { get; set; }
     }
 }

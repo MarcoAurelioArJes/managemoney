@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore;
 
-namespace CrudWindowsForm.API
+namespace managemoney.API
 {
     public class Program
     {
