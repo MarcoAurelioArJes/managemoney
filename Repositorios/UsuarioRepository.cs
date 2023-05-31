@@ -47,10 +47,5 @@ namespace managemoney.Repositorios
         {
 
         }
-
-        public void Salvar()
-        {
-            _contexto.SaveChanges();
-        }
     }
 }

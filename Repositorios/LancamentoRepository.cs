@@ -57,10 +57,5 @@ namespace managemoney.Repositorios
             _dbSet.Entry(lancamento).State = EntityState.Deleted;
             Salvar();
         }
-
-        public void Salvar()
-        {
-            _contexto.SaveChanges();
-        }
     }
 }

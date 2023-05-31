@@ -1,9 +1,10 @@
 using managemoney.Models;
+using managemoney.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace managemoney.Repositorios
 {
-    public class BaseRepository<T> where T : BaseModel
+    public abstract class BaseRepository<T> where T : BaseModel
     {
         protected readonly ApplicationContext _contexto;
         protected readonly DbSet<T> _dbSet;
@@ -12,6 +13,11 @@ namespace managemoney.Repositorios
         {
             _contexto = contexto;
             _dbSet = _contexto.Set<T>();
+        }
+
+        public void Salvar()
+        {
+            _contexto.SaveChanges();
         }
     }
 }

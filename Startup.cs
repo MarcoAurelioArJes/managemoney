@@ -24,6 +24,7 @@ namespace managemoney.API
 
             servicos.AddScoped<IUsuarioRepository, UsuarioRepository>();
             servicos.AddScoped<ILancamentoRepository, LancamentoRepository>();
+            servicos.AddScoped<ICategoriaRepository, CategoriaRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
