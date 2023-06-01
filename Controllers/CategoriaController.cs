@@ -1,6 +1,7 @@
 using managemoney.Models;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
+using ManageMoney.Repositorios.Dtos;
 
 namespace managemoney.Controllers
 {
@@ -15,11 +16,14 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("criarCategoria")]
-        public IActionResult CriarCategoria([FromBody] CategoriaModel categoria)
+        public IActionResult CriarCategoria([FromBody] CategoriaDTO categoria)
         {
             try
             {
-                _categoriaRepository.Criar(categoria);
+                _categoriaRepository.Criar(new CategoriaModel
+                {
+                    Nome = categoria.Nome
+                });
                 return Ok();
             }
             catch (System.Exception)
@@ -27,6 +31,19 @@ namespace managemoney.Controllers
                 
                 return BadRequest();
             }
-        } 
+        }
+
+        [HttpGet("obterTodas")]
+        public IActionResult ObterTodas()
+        {
+            try
+            {
+                return Ok(_categoriaRepository.ObterTodos());
+            } 
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

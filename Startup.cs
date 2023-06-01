@@ -18,8 +18,10 @@ namespace managemoney.API
             servicos.AddControllers();
             servicos.AddCors();
 
+            var stringDeConexao = OperatingSystem.IsLinux() ? Configuration.GetConnectionString("Default") 
+                                                              : Configuration.GetConnectionString("Local");
             servicos.AddDbContext<ApplicationContext>(o => {
-                o.UseSqlServer(Configuration.GetConnectionString("Default"));
+                o.UseSqlServer(stringDeConexao);
             });
 
             servicos.AddScoped<IUsuarioRepository, UsuarioRepository>();
@@ -27,7 +29,7 @@ namespace managemoney.API
             servicos.AddScoped<ICategoriaRepository, CategoriaRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider provedorDeServicos)
         {
             if (env.IsDevelopment())
             {
@@ -42,6 +44,8 @@ namespace managemoney.API
             {
                 endpoints.MapControllers();
             });
+
+            provedorDeServicos.GetService<ApplicationContext>().Database.Migrate();
         }
     }
 }
