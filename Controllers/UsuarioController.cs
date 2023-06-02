@@ -14,7 +14,7 @@ namespace managemoney.Controllers
             _usuarioRepository = usuarioRepository;
         }
 
-        [HttpPost("api/[controller]/criar")]
+        [HttpPost("api/[controller]/cadastrar")]
         public ActionResult Cadastrar([FromBody] UsuarioModel usuario)
         {
             try

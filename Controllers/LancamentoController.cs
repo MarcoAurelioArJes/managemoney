@@ -1,6 +1,7 @@
 using managemoney.Models;
-using managemoney.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using managemoney.Models.Interfaces;
+using managemoney.Repositorios.DTOs.LancamentosDTO;
 
 namespace managemoney.Controllers
 {
@@ -18,11 +19,11 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("api/[controller]/cadastrar")]
-        public ActionResult Criar([FromBody] LancamentoModel lancamento)
+        public ActionResult Criar([FromBody] CriarLancamentoDTO lancamento)
         {
             try
             {
-                _lancamentoRepository.Criar(lancamento);
+                _lancamentoRepository.Criar(MapeamentoLancamentoDTO.MapeiaCriarLancamento(lancamento));
                 return Created("Lancamento criado", null);
             }
             catch (System.Exception)
