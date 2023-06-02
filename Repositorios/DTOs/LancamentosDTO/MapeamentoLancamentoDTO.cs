@@ -9,8 +9,7 @@ namespace managemoney.Repositorios.DTOs.LancamentosDTO
         {
             var configuration = new MapperConfiguration(cfg => cfg.CreateMap<CriarLancamentoDTO, LancamentoModel>());
             var mapper = configuration.CreateMapper();
-            var teste = mapper.Map<LancamentoModel>(lancamentoDTO);
-            return teste;
+            return mapper.Map<LancamentoModel>(lancamentoDTO);
         }
     }
 }
