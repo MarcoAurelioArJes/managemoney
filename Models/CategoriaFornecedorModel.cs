@@ -1,15 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace managemoney.Models
 {
+    [Table("CategoriaFornecedor")]
     public class CategoriaFornecedorModel : BaseModel 
     {
-         public int FornecedorID { get; set; }
-         public int CategoriaID { get; set; }
-         public FornecedorModel Fornecedor { get; set; }
-         public CategoriaModel Categoria { get; set; }
+        [Required]
+        public int UsuarioID { get; set; }
+        [Required(AllowEmptyStrings = true)]
+        public int? FornecedorID { get; set; }
+        [Required(AllowEmptyStrings = true)]
+        public int? CategoriaID { get; set; }
+
+        [ForeignKey("UsuarioID")]
+        public UsuarioModel Usuario { get; set; }        
+        [ForeignKey("FornecedorID")]
+        public FornecedorModel Fornecedor { get; set; }
+        [ForeignKey("CategoriaID")]
+        public CategoriaModel Categoria { get; set; }
     }
 }

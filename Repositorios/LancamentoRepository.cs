@@ -25,7 +25,6 @@ namespace managemoney.Repositorios
             if (lancamento is null)
                 throw new Exception("Lançamento não encontrado!!!");
 
-            lancamento.Fornecedor = novoLancamento.Fornecedor;
             lancamento.Valor = novoLancamento.Valor;
             lancamento.DataLancamento = novoLancamento.DataLancamento;
             lancamento.TipoDeLancamento = novoLancamento.TipoDeLancamento;

@@ -1,7 +1,6 @@
 using managemoney.Models;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
-using ManageMoney.Repositorios.Dtos;
 
 namespace managemoney.Controllers
 {
@@ -16,14 +15,11 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("criarCategoria")]
-        public IActionResult CriarCategoria([FromBody] CategoriaDTO categoria)
+        public IActionResult CriarCategoria([FromBody] CategoriaModel categoria)
         {
             try
             {
-                _categoriaRepository.Criar(new CategoriaModel
-                {
-                    Nome = categoria.Nome
-                });
+                _categoriaRepository.Criar(categoria);
                 return Ok();
             }
             catch (System.Exception)
