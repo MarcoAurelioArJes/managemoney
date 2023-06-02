@@ -5,7 +5,7 @@ namespace managemoney.Repositorios.DTOs.LancamentosDTO
 {
     public static class MapeamentoLancamentoDTO
     {
-        public static LancamentoModel MapeiaCriarLancamento(CriarLancamentoDTO lancamentoDTO)
+        public static LancamentoModel MapeiaCriarLancamento(this CriarLancamentoDTO lancamentoDTO)
         {
             var configuration = new MapperConfiguration(cfg => cfg.CreateMap<CriarLancamentoDTO, LancamentoModel>());
             var mapper = configuration.CreateMapper();

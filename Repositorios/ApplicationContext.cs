@@ -23,7 +23,7 @@ namespace managemoney.Repositorios
 
             modelBuilder.Entity<CategoriaModel>()
                         .HasOne(m => m.Usuario)
-                        .WithOne()
+                        .WithMany()
                         .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<FornecedorModel>()
@@ -35,7 +35,7 @@ namespace managemoney.Repositorios
             
             modelBuilder.Entity<FornecedorModel>()
                         .HasOne(m => m.Usuario)
-                        .WithOne()
+                        .WithMany()
                         .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<CategoriaFornecedorModel>()
@@ -51,7 +51,7 @@ namespace managemoney.Repositorios
 
             modelBuilder.Entity<CategoriaFornecedorModel>()
                         .HasOne(m => m.Usuario)
-                        .WithOne()
+                        .WithMany()
                         .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<LancamentoModel>()
@@ -63,7 +63,7 @@ namespace managemoney.Repositorios
 
             modelBuilder.Entity<LancamentoModel>()
                         .HasOne(m => m.Usuario)
-                        .WithOne()
+                        .WithMany()
                         .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<MetasModel>()
@@ -75,7 +75,7 @@ namespace managemoney.Repositorios
 
             modelBuilder.Entity<MetasModel>()
                         .HasOne(m => m.Usuario)
-                        .WithOne()
+                        .WithMany()
                         .OnDelete(DeleteBehavior.NoAction);
         }
     }

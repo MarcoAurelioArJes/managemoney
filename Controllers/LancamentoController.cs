@@ -23,7 +23,7 @@ namespace managemoney.Controllers
         {
             try
             {
-                _lancamentoRepository.Criar(MapeamentoLancamentoDTO.MapeiaCriarLancamento(lancamento));
+                _lancamentoRepository.Criar(lancamento.MapeiaCriarLancamento());
                 return Created("Lancamento criado", null);
             }
             catch (System.Exception)
