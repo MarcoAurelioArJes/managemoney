@@ -1,0 +1,75 @@
+.titulo {
+    text-align: center;
+    text-align: center;
+    margin: 10px 0 30px 0;
+    opacity: 0.9;
+    color: #0CA64E;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+
+}
+
+input[required],
+select[required] {
+    border: 1px solid #3CB371;
+}
+
+input[type="date"] {
+    border: 1px solid #3CB371;
+}
+
+select option:checked {
+    background-color: #3CB371;
+    color: #fff;
+}
+
+input {
+    outline: none;
+}
+
+input[type="submit"] {
+    background-color: #3CB371;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px #888;
+}
+
+input[type="text"] {
+    border: 1px solid #3CB371;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#labelNotificacao,
+#labelOculto {
+    display: inline;
+    color: #333;
+}
+
+.contentCheckBox {
+    margin: 0.5rem 0;
+}
+
+#botaoSalvar {
+    display: block;
+}

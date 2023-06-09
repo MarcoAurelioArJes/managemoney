@@ -1,6 +1,7 @@
 using managemoney.Models;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace managemoney.Controllers
 {
@@ -15,6 +16,7 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("criarCategoria")]
+        [Authorize]
         public IActionResult CriarCategoria([FromBody] CategoriaModel categoria)
         {
             try
@@ -30,6 +32,7 @@ namespace managemoney.Controllers
         }
 
         [HttpGet("obterTodas")]
+        [Authorize]
         public IActionResult ObterTodas()
         {
             try

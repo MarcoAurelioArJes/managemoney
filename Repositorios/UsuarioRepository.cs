@@ -1,51 +1,44 @@
+using System.Text;
+using AutoMapper;
 using managemoney.Models;
 using managemoney.Models.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using managemoney.Repositorios.DTOs.UsuarioDTO;
 
 namespace managemoney.Repositorios
 {
-    public class UsuarioRepository : BaseRepository<UsuarioModel>, IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
-        public UsuarioRepository(ApplicationContext contexto) 
-        : base(contexto) 
-        {
+        private IMapper _mapper;
+        private UserManager<UsuarioModel> _usermanager;
 
+        public UsuarioRepository(IMapper mapper, UserManager<UsuarioModel> userManager, 
+                              SignInManager<UsuarioModel> signInManager)
+        {
+            _mapper = mapper;
+            _usermanager = userManager;
         }
 
-        public void Criar(UsuarioModel usuario)
+        public Task Atualizar(int id, AtualizarUsuarioDTO usuarioDTO)
         {
-            _dbSet.Add(usuario);
-            Salvar();
+            throw new NotImplementedException();
         }
 
-        public void Atualizar(int id, UsuarioModel novoUsuario)
+        public async Task Cadastrar(CriarUsuarioDTO usuarioDto) 
         {
-            var usuario = ObterPorId(id);
-            if (usuario is null)
-                throw new Exception("Usuário não encontrado!!!");
+                var usuario = _mapper.Map<UsuarioModel>(usuarioDto);
+            
+                var resultado = await _usermanager.CreateAsync(usuario, usuarioDto.Senha);
+                
+                if (!resultado.Succeeded) 
+                {
+                    var erros = new StringBuilder();
+                    foreach(var erro in resultado.Errors) 
+                        erros.AppendLine(erro.Description + " ");
 
-            usuario.Nome = novoUsuario.Nome;
-            usuario.Cpf = novoUsuario.Cpf;
-            usuario.Email = novoUsuario.Email;
-            usuario.Telefone = novoUsuario.Telefone;
-
-            _contexto.Entry(usuario).State = EntityState.Modified;
-            Salvar();
-        }
-
-        public UsuarioModel ObterPorId(int id)
-        {
-            return _dbSet.Where(u => u.Id == id).FirstOrDefault();
-        }
-
-        public List<UsuarioModel> ObterTodos()
-        {
-            return new List<UsuarioModel>();
-        }
-
-        public void Remover(int id)
-        {
-
+                    throw new Exception(erros.ToString());
+                }
         }
     }
 }

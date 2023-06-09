@@ -1,9 +1,10 @@
 using managemoney.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace managemoney.Repositorios
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<UsuarioModel>
     {
         public ApplicationContext(DbContextOptions opcoes) 
         : base(opcoes)
@@ -22,34 +23,6 @@ namespace managemoney.Repositorios
                         .HasKey(c => c.Id);
 
             modelBuilder.Entity<CategoriaModel>()
-                        .HasOne(m => m.Usuario)
-                        .WithMany()
-                        .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<FornecedorModel>()
-                        .HasKey(p => p.Id);
-
-            modelBuilder.Entity<FornecedorModel>()
-                        .Property(f => f.CpfCnpj)
-                        .IsRequired(false);
-            
-            modelBuilder.Entity<FornecedorModel>()
-                        .HasOne(m => m.Usuario)
-                        .WithMany()
-                        .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<CategoriaFornecedorModel>()
-                        .HasKey(cf => cf.Id);
-
-            modelBuilder.Entity<CategoriaFornecedorModel>()
-                        .Property(cf => cf.FornecedorID)
-                        .IsRequired(false);
-            
-            modelBuilder.Entity<CategoriaFornecedorModel>()
-                        .Property(cf => cf.CategoriaID)
-                        .IsRequired(false);
-
-            modelBuilder.Entity<CategoriaFornecedorModel>()
                         .HasOne(m => m.Usuario)
                         .WithMany()
                         .OnDelete(DeleteBehavior.NoAction);

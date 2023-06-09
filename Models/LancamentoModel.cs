@@ -8,9 +8,9 @@ namespace managemoney.Models
     public class LancamentoModel : BaseModel
     {
         [Required]
-        public int UsuarioID { get; set; }
+        public string UsuarioID { get; set; }
         [Required]
-        public int CategoriaFornecedorID { get; set; }
+        public int CategoriaID { get; set; }
         [Required]
         public decimal Valor { get; set; }
         [Required]
@@ -24,7 +24,7 @@ namespace managemoney.Models
 
         [ForeignKey("UsuarioID")]
         public UsuarioModel Usuario { get; set; }
-        [ForeignKey("CategoriaFornecedorID")]
-        public CategoriaFornecedorModel CategoriaFornecedor { get; set; }   
+        [ForeignKey("CategoriaID")]
+        public CategoriaModel Categoria { get; set; }   
     }
 }

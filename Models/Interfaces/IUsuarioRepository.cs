@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using managemoney.Repositorios.DTOs.UsuarioDTO;
 
 namespace managemoney.Models.Interfaces
 {
-    public interface IUsuarioRepository : IBaseRepository<UsuarioModel>
+    public interface IUsuarioRepository
     {
-    
+        Task Cadastrar(CriarUsuarioDTO usuarioDTO);
+        Task Atualizar(int id, AtualizarUsuarioDTO usuarioDTO);
     }
 }

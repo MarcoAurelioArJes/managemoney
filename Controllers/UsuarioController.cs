@@ -1,25 +1,30 @@
-using managemoney.Models;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
+using managemoney.Repositorios.DTOs.UsuarioDTO;
+using managemoney.Services;
 
 namespace managemoney.Controllers
 {
     [ApiController]
-    public class UsuarioController : ControllerBase
+    [Route("[Controller]")]
+    public class UsuarioController : Controller
     {
-        private IUsuarioRepository _usuarioRepository { get; set; }
+        private IUsuarioRepository _usuarioRepository;
+        private AutenticacaoUsuarioService _autenticacaoUsuarioService;
 
-        public UsuarioController(IUsuarioRepository usuarioRepository)
+        public UsuarioController(IUsuarioRepository usuarioRepository,
+                                 AutenticacaoUsuarioService autenticacaoUsuarioService)
         {
             _usuarioRepository = usuarioRepository;
+            _autenticacaoUsuarioService = autenticacaoUsuarioService;
         }
 
-        [HttpPost("api/[controller]/cadastrar")]
-        public ActionResult Cadastrar([FromBody] UsuarioModel usuario)
+        [HttpPost("cadastrar")]
+        public async Task<IActionResult> Cadastrar([FromBody] CriarUsuarioDTO usuarioDTO)
         {
             try
             {
-                _usuarioRepository.Criar(usuario);
+                await _usuarioRepository.Cadastrar(usuarioDTO);
                 return Ok();   
             }
             catch (System.Exception)
@@ -28,17 +33,17 @@ namespace managemoney.Controllers
             }           
         }
 
-        [HttpPut("api/[controller]/editar/{id}")]
-        public ActionResult Atualizar(int id, [FromBody] UsuarioModel novoUsuario)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUsuarioDTO usuarioDTO)
         {
             try
             {
-                _usuarioRepository.Atualizar(id, novoUsuario);
-                return Ok();   
+                var token = await _autenticacaoUsuarioService.Login(usuarioDTO);
+                return Ok(token);   
             }
-            catch (System.Exception erro)
+            catch (System.Exception)
             {
-                return BadRequest(erro);
+                throw;
             }           
         }
     }

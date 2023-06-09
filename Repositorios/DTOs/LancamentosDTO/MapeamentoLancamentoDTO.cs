@@ -3,13 +3,11 @@ using managemoney.Models;
 
 namespace managemoney.Repositorios.DTOs.LancamentosDTO
 {
-    public static class MapeamentoLancamentoDTO
+    public class MapeamentoLancamentoDTO : Profile
     {
-        public static LancamentoModel MapeiaCriarLancamento(this CriarLancamentoDTO lancamentoDTO)
+        public MapeamentoLancamentoDTO()
         {
-            var configuration = new MapperConfiguration(cfg => cfg.CreateMap<CriarLancamentoDTO, LancamentoModel>());
-            var mapper = configuration.CreateMapper();
-            return mapper.Map<LancamentoModel>(lancamentoDTO);
+            CreateMap<CriarLancamentoDTO, LancamentoModel>();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace managemoney.Models
     public class MetasModel : BaseModel
     {
         [Required]
-        public int UsuarioID { get; set; }
+        public string UsuarioID { get; set; }
         [Required]
         public int CategoriaID { get; set; }
         [Required]

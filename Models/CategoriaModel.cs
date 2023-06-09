@@ -7,12 +7,11 @@ namespace managemoney.Models
     public class CategoriaModel : BaseModel
     {
         [Required]
-        public int UsuarioID { get; set; }
+        public string UsuarioID { get; set; }
         [Required, MaxLength(30)]
         public string Nome { get; set; }
 
         [ForeignKey("UsuarioID")]
         public UsuarioModel Usuario { get; set; }
-        public List<CategoriaFornecedorModel> CategoriasFornecedores { get; set; }
     }
 }

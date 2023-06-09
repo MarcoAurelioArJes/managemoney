@@ -1,29 +1,42 @@
+using AutoMapper;
 using managemoney.Models;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
 using managemoney.Repositorios.DTOs.LancamentosDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace managemoney.Controllers
 {
     [ApiController]
-    public class LancamentoController : ControllerBase
+    [Route("[Controller]")]
+    public class LancamentoController : Controller
     {
+        private IMapper _mapper;
         private ILancamentoRepository _lancamentoRepository;
         private IUsuarioRepository _usuarioRepository;
-        
-        public LancamentoController(ILancamentoRepository lancamentoRepository,
+
+        public LancamentoController(IMapper mapper,
+                                    ILancamentoRepository lancamentoRepository,
                                     IUsuarioRepository usuarioRepository)
         {
             _lancamentoRepository = lancamentoRepository;
             _usuarioRepository = usuarioRepository;
+            _mapper = mapper;
         }
 
-        [HttpPost("api/[controller]/cadastrar")]
+        public IActionResult Lancamento()
+        {
+            
+            return View();
+        }
+
+        [HttpPost("cadastrar")]
+        [Authorize]
         public ActionResult Criar([FromBody] CriarLancamentoDTO lancamento)
         {
             try
             {
-                _lancamentoRepository.Criar(lancamento.MapeiaCriarLancamento());
+                _lancamentoRepository.Criar(_mapper.Map<LancamentoModel>(lancamento));
                 return Created("Lancamento criado", null);
             }
             catch (System.Exception)
@@ -33,8 +46,9 @@ namespace managemoney.Controllers
             }
         }
 
-        [HttpPost("api/[controller]/atualizar/{id}")]
-        public IActionResult Criar(int id, [FromBody] LancamentoModel lancamento)
+        [HttpPost("atualizar/{id}")]
+        [Authorize]
+        public IActionResult Atualizar(int id, [FromBody] LancamentoModel lancamento)
         {
             try
             {
@@ -48,7 +62,8 @@ namespace managemoney.Controllers
             }
         }
 
-        [HttpPost("api/[controller]/obterTodos")]
+        [HttpGet("obterTodos")]
+        [Authorize]
         public IActionResult ObterTodos()
         {
             try
@@ -62,7 +77,8 @@ namespace managemoney.Controllers
             }
         }
 
-        [HttpPost("api/[controller]/obterPorId/{id}")]
+        [HttpGet("obterPorId/{id}")]
+        [Authorize]
         public ActionResult ObterPorId(int id)
         {
             try
@@ -76,7 +92,8 @@ namespace managemoney.Controllers
             }
         }
 
-        [HttpPost("api/[controller]/remover/{id}")]
+        [HttpDelete("remover/{id}")]
+        [Authorize]
         public ActionResult Remover(int id)
         {
             try

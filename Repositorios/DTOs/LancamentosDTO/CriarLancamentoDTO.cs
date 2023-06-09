@@ -6,8 +6,6 @@ namespace managemoney.Repositorios.DTOs.LancamentosDTO
     public class CriarLancamentoDTO
     {
         [Required]
-        public int UsuarioID { get; set; }
-        [Required]
         public int CategoriaFornecedorID { get; set; }
         [Required]
         public decimal Valor { get; set; }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace managemoney.Models.Interfaces
+namespace managemoney.Repositorios.DTOs.UsuarioDTO
 {
-    public interface IFornecedorRepository : IBaseRepository<FornecedorModel>
+    public class AtualizarUsuarioDTO
     {
         
     }
