@@ -1,5 +1,5 @@
-using AutoMapper;
 using managemoney.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
 using managemoney.Repositorios.DTOs.LancamentosDTO;
@@ -32,33 +32,32 @@ namespace managemoney.Controllers
 
         [HttpPost("cadastrar")]
         [Authorize]
-        public ActionResult Criar([FromBody] CriarLancamentoDTO lancamento)
+        public ActionResult Criar([FromBody] LancamentoDTO lancamento)
         {
             try
             {
                 _lancamentoRepository.Criar(_mapper.Map<LancamentoModel>(lancamento));
                 return Created("Lancamento criado", null);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                return BadRequest(ex.Message);
             }
         }
 
-        [HttpPost("atualizar/{id}")]
+        [HttpPut("atualizar/{id}")]
         [Authorize]
-        public IActionResult Atualizar(int id, [FromBody] LancamentoModel lancamento)
+        public IActionResult Atualizar(int id, [FromBody] LancamentoDTO novoLancamento)
         {
             try
             {
-                _lancamentoRepository.Atualizar(id, lancamento);
+                _lancamentoRepository.Atualizar(id, _mapper.Map<LancamentoModel>(novoLancamento));
                 return NoContent();
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
                 
-                throw;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -70,10 +69,9 @@ namespace managemoney.Controllers
             {
                 return Ok(_lancamentoRepository.ObterTodos());
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -85,10 +83,9 @@ namespace managemoney.Controllers
             {
                 return Ok(_lancamentoRepository.ObterPorId(id));
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -101,10 +98,9 @@ namespace managemoney.Controllers
                 _lancamentoRepository.Remover(id);
                 return NoContent();
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                return BadRequest(ex.Message);
             }
         }
     }

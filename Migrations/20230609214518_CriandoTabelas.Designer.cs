@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using managemoney.Repositorios;
 
@@ -11,9 +12,11 @@ using managemoney.Repositorios;
 namespace ManageMoney.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230609214518_CriandoTabelas")]
+    partial class CriandoTabelas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,9 +196,6 @@ namespace ManageMoney.Migrations
                     b.Property<DateTime>("DataLancamento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Notificacao")
                         .HasColumnType("bit");
 
@@ -237,6 +237,7 @@ namespace ManageMoney.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 

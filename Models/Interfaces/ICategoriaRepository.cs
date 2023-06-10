@@ -7,6 +7,7 @@ namespace managemoney.Models.Interfaces
 {
     public interface ICategoriaRepository : IBaseRepository<CategoriaModel>
     {
-        
+        void VerificarSeCategoriaExiste(CategoriaModel categoria);
+        void VerificarSeCategoriaPertenceAoUsuario(int categoriaId);
     }
 }

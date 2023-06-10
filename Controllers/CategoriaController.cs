@@ -1,33 +1,38 @@
+using AutoMapper;
 using managemoney.Models;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using managemoney.Repositorios.DTOs.CategoriaDTO;
 
 namespace managemoney.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[Controller]")]
     public class CategoriaController : ControllerBase
     {
+        private IMapper _mapper;
         private ICategoriaRepository _categoriaRepository;
-        public CategoriaController(ICategoriaRepository categoriaRepository) 
+        public CategoriaController(ICategoriaRepository categoriaRepository,
+                                   IMapper mapper) 
         {
             _categoriaRepository = categoriaRepository;
+            _mapper = mapper;
         }
 
-        [HttpPost("criarCategoria")]
+        [HttpPost("criar")]
         [Authorize]
-        public IActionResult CriarCategoria([FromBody] CategoriaModel categoria)
+        public IActionResult Criar([FromBody] CriarCategoriaDTO categoria)
         {
             try
             {
-                _categoriaRepository.Criar(categoria);
+                _categoriaRepository.Criar(_mapper.Map<CategoriaModel>(categoria));
                 return Ok();
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
                 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -37,7 +42,22 @@ namespace managemoney.Controllers
         {
             try
             {
-                return Ok(_categoriaRepository.ObterTodos());
+                return Ok(_mapper.Map<List<CategoriasDTO>>(_categoriaRepository.ObterTodos()));
+            } 
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("remover/{id}")]
+        [Authorize]
+        public IActionResult Remover(int id)
+        {
+            try
+            {
+                _categoriaRepository.Remover(id);
+                return Ok();
             } 
             catch (Exception ex)
             {

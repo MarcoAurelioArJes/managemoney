@@ -12,8 +12,8 @@ using managemoney.Repositorios;
 namespace ManageMoney.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230607004535_CriandoTabelas")]
-    partial class CriandoTabelas
+    [Migration("20230610032641_AlterandoObrigatoriedadeDasDescricoes")]
+    partial class AlterandoObrigatoriedadeDasDescricoes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,35 +158,6 @@ namespace ManageMoney.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("managemoney.Models.CategoriaFornecedorModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CategoriaID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FornecedorID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsuarioID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoriaID");
-
-                    b.HasIndex("FornecedorID");
-
-                    b.HasIndex("UsuarioID");
-
-                    b.ToTable("CategoriaFornecedor");
-                });
-
             modelBuilder.Entity("managemoney.Models.CategoriaModel", b =>
                 {
                     b.Property<int>("Id")
@@ -206,37 +177,11 @@ namespace ManageMoney.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("Nome");
+
                     b.HasIndex("UsuarioID");
 
                     b.ToTable("Categorias");
-                });
-
-            modelBuilder.Entity("managemoney.Models.FornecedorModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CpfCnpj")
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
-
-                    b.Property<string>("NomeFantasia")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("UsuarioID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioID");
-
-                    b.ToTable("Fornecedores");
                 });
 
             modelBuilder.Entity("managemoney.Models.LancamentoModel", b =>
@@ -247,11 +192,14 @@ namespace ManageMoney.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoriaFornecedorID")
+                    b.Property<int>("CategoriaID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataLancamento")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Notificacao")
                         .HasColumnType("bit");
@@ -272,7 +220,7 @@ namespace ManageMoney.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriaFornecedorID");
+                    b.HasIndex("CategoriaID");
 
                     b.HasIndex("UsuarioID");
 
@@ -294,7 +242,6 @@ namespace ManageMoney.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
@@ -380,6 +327,10 @@ namespace ManageMoney.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -455,41 +406,7 @@ namespace ManageMoney.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("managemoney.Models.CategoriaFornecedorModel", b =>
-                {
-                    b.HasOne("managemoney.Models.CategoriaModel", "Categoria")
-                        .WithMany("CategoriasFornecedores")
-                        .HasForeignKey("CategoriaID");
-
-                    b.HasOne("managemoney.Models.FornecedorModel", "Fornecedor")
-                        .WithMany("CategoriasFornecedores")
-                        .HasForeignKey("FornecedorID");
-
-                    b.HasOne("managemoney.Models.UsuarioModel", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Categoria");
-
-                    b.Navigation("Fornecedor");
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("managemoney.Models.CategoriaModel", b =>
-                {
-                    b.HasOne("managemoney.Models.UsuarioModel", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("managemoney.Models.FornecedorModel", b =>
                 {
                     b.HasOne("managemoney.Models.UsuarioModel", "Usuario")
                         .WithMany()
@@ -502,9 +419,9 @@ namespace ManageMoney.Migrations
 
             modelBuilder.Entity("managemoney.Models.LancamentoModel", b =>
                 {
-                    b.HasOne("managemoney.Models.CategoriaFornecedorModel", "CategoriaFornecedor")
+                    b.HasOne("managemoney.Models.CategoriaModel", "Categoria")
                         .WithMany()
-                        .HasForeignKey("CategoriaFornecedorID")
+                        .HasForeignKey("CategoriaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -514,7 +431,7 @@ namespace ManageMoney.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("CategoriaFornecedor");
+                    b.Navigation("Categoria");
 
                     b.Navigation("Usuario");
                 });
@@ -536,16 +453,6 @@ namespace ManageMoney.Migrations
                     b.Navigation("Categoria");
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("managemoney.Models.CategoriaModel", b =>
-                {
-                    b.Navigation("CategoriasFornecedores");
-                });
-
-            modelBuilder.Entity("managemoney.Models.FornecedorModel", b =>
-                {
-                    b.Navigation("CategoriasFornecedores");
                 });
 #pragma warning restore 612, 618
         }

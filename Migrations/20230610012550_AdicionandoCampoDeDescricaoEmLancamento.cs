@@ -5,16 +5,16 @@
 namespace ManageMoney.Migrations
 {
     /// <inheritdoc />
-    public partial class AdicionandoCampoSenhaNoUsuario : Migration
+    public partial class AdicionandoCampoDeDescricaoEmLancamento : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Senha",
-                table: "AspNetUsers",
+                name: "Descricao",
+                table: "Lancamentos",
                 type: "nvarchar(max)",
-                nullable: false,
+                nullable: true,
                 defaultValue: "");
         }
 
@@ -22,8 +22,8 @@ namespace ManageMoney.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Senha",
-                table: "AspNetUsers");
+                name: "Descricao",
+                table: "Lancamentos");
         }
     }
 }

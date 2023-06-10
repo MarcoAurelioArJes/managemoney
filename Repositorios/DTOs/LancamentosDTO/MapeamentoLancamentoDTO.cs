@@ -7,7 +7,7 @@ namespace managemoney.Repositorios.DTOs.LancamentosDTO
     {
         public MapeamentoLancamentoDTO()
         {
-            CreateMap<CriarLancamentoDTO, LancamentoModel>();
+            CreateMap<LancamentoDTO, LancamentoModel>();
         }
     }
 }

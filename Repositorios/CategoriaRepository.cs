@@ -1,4 +1,5 @@
 using managemoney.Models;
+using managemoney.Helpers;
 using managemoney.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,14 +7,20 @@ namespace managemoney.Repositorios
 {
     public class CategoriaRepository : BaseRepository<CategoriaModel>, ICategoriaRepository
     {
-        public CategoriaRepository(ApplicationContext applicationContext)
+        private ContextoDoUsuario _contextoDoUsuario;
+
+        public CategoriaRepository(ApplicationContext applicationContext,
+                                   ContextoDoUsuario contextoDoUsuario)
         : base(applicationContext)
         {
-            
+            _contextoDoUsuario = contextoDoUsuario;
         }
 
         public void Criar(CategoriaModel categoria)
         {
+            VerificarSeCategoriaExiste(categoria);
+            
+            categoria.UsuarioID = _contextoDoUsuario.ObterIdDoUsuarioAtual();
             _dbSet.Add(categoria);
             Salvar();
         }
@@ -21,9 +28,6 @@ namespace managemoney.Repositorios
         public void Atualizar(int id, CategoriaModel categoriaNovo)
         {
             var categoria = ObterPorId(id);
-            
-            if (categoria is null)
-                throw new Exception("Lançamento não encontrado!!!");
 
             categoria.Nome = categoriaNovo.Nome;
 
@@ -34,23 +38,47 @@ namespace managemoney.Repositorios
 
         public CategoriaModel ObterPorId(int id)
         {
-            return _dbSet.Where(l => l.Id == id).FirstOrDefault();
+            var categoria = _dbSet.Where(c => c.Id == id && c.UsuarioID == _contextoDoUsuario.ObterIdDoUsuarioAtual()).FirstOrDefault();
+
+            if (categoria is null)
+                throw new Exception("Categoria não encontrada!!!");
+            
+            return categoria;
         }
 
         public List<CategoriaModel> ObterTodos()
         {
-            return _dbSet.ToList();
+            return _dbSet
+                        .Where(c => c.UsuarioID == _contextoDoUsuario.ObterIdDoUsuarioAtual())
+                        .ToList();
         }
 
         public void Remover(int id)
         {
-            var lancamento = ObterPorId(id);
+            var categoria = ObterPorId(id);
 
-            if (lancamento is null)
-                throw new Exception("Categoria não encontrada!!!");
-
-            _dbSet.Entry(lancamento).State = EntityState.Deleted;
+            _dbSet.Entry(categoria).State = EntityState.Deleted;
             Salvar();
+        }
+
+        public void VerificarSeCategoriaExiste(CategoriaModel categoria)
+        {
+            var categoriaDb = _dbSet
+                .Where(c => c.UsuarioID == _contextoDoUsuario.ObterIdDoUsuarioAtual()
+                        && c.Nome.ToLower() == categoria.Nome.ToLower());
+            
+            if (categoriaDb.Any())
+                throw new ArgumentException("Categoria já cadastrada");
+        }
+
+        public void VerificarSeCategoriaPertenceAoUsuario(int categoriaId)
+        {
+            var categoriaDb = _dbSet
+                .Where(c => c.UsuarioID == _contextoDoUsuario.ObterIdDoUsuarioAtual()
+                        && c.Id == categoriaId);
+            
+            if (!categoriaDb.Any())
+                throw new ArgumentException("Categoria não existe");
         }
     }
 }

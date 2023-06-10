@@ -1,5 +1,6 @@
 using System.Text;
 using managemoney.Models;
+using managemoney.Helpers;
 using managemoney.Services;
 using managemoney.Repositorios;
 using managemoney.Models.Interfaces;
@@ -42,8 +43,9 @@ builder.Services.AddAuthentication(opts =>
     };
 });
 
-builder.Services.AddScoped<AutenticacaoUsuarioService>();
+builder.Services.AddScoped<ContextoDoUsuario>();
 builder.Services.AddScoped<GeradorDeTokenService>();
+builder.Services.AddScoped<AutenticacaoUsuarioService>();
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ILancamentoRepository, LancamentoRepository>();

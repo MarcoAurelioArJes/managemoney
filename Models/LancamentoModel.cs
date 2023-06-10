@@ -12,19 +12,17 @@ namespace managemoney.Models
         [Required]
         public int CategoriaID { get; set; }
         [Required]
-        public decimal Valor { get; set; }
-        [Required]
         public DateTime DataLancamento { get; set; }
+        [Required, Range(18,2)]
+        public decimal Valor { get; set; }
+        [Required(AllowEmptyStrings = true), MaxLength(3000)]
+        public string Descricao { get; set; }
         [Required]
         public TipoDeLancamentoEnum TipoDeLancamento { get; set; }
-        [Required]
-        public bool Recorrente { get; set; }
-        [Required]
-        public bool Notificacao { get; set; }
 
         [ForeignKey("UsuarioID")]
         public UsuarioModel Usuario { get; set; }
         [ForeignKey("CategoriaID")]
-        public CategoriaModel Categoria { get; set; }   
+        public CategoriaModel Categoria { get; set; }
     }
 }

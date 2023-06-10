@@ -39,6 +39,10 @@ namespace managemoney.Repositorios
                         .WithMany()
                         .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<LancamentoModel>()
+                        .Property(c => c.Descricao)
+                        .IsRequired(false);
+
             modelBuilder.Entity<MetasModel>()
                         .HasKey(p => p.Id);
 
@@ -50,6 +54,10 @@ namespace managemoney.Repositorios
                         .HasOne(m => m.Usuario)
                         .WithMany()
                         .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<MetasModel>()
+                .Property(c => c.Descricao)
+                .IsRequired(false);
         }
     }
 }

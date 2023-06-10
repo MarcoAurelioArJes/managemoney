@@ -27,9 +27,9 @@ namespace managemoney.Controllers
                 await _usuarioRepository.Cadastrar(usuarioDTO);
                 return Ok();   
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                throw;
+                return BadRequest(ex.Message);
             }           
         }
 
@@ -41,9 +41,9 @@ namespace managemoney.Controllers
                 var token = await _autenticacaoUsuarioService.Login(usuarioDTO);
                 return Ok(token);   
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                throw;
+                return BadRequest(ex.Message);
             }           
         }
     }

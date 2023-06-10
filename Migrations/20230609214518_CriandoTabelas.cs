@@ -33,6 +33,7 @@ namespace ManageMoney.Migrations
                     Cpf = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -178,23 +179,33 @@ namespace ManageMoney.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fornecedores",
+                name: "Lancamentos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    NomeFantasia = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CpfCnpj = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true)
+                    CategoriaID = table.Column<int>(type: "int", nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    DataLancamento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TipoDeLancamento = table.Column<int>(type: "int", nullable: false),
+                    Recorrente = table.Column<bool>(type: "bit", nullable: false),
+                    Notificacao = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fornecedores", x => x.Id);
+                    table.PrimaryKey("PK_Lancamentos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Fornecedores_AspNetUsers_UsuarioID",
+                        name: "FK_Lancamentos_AspNetUsers_UsuarioID",
                         column: x => x.UsuarioID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Lancamentos_Categorias_CategoriaID",
+                        column: x => x.CategoriaID,
+                        principalTable: "Categorias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,66 +236,6 @@ namespace ManageMoney.Migrations
                         name: "FK_Metas_Categorias_Categorias",
                         column: x => x.Categorias,
                         principalTable: "Categorias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CategoriaFornecedor",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UsuarioID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FornecedorID = table.Column<int>(type: "int", nullable: true),
-                    CategoriaID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoriaFornecedor", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CategoriaFornecedor_AspNetUsers_UsuarioID",
-                        column: x => x.UsuarioID,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_CategoriaFornecedor_Categorias_CategoriaID",
-                        column: x => x.CategoriaID,
-                        principalTable: "Categorias",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_CategoriaFornecedor_Fornecedores_FornecedorID",
-                        column: x => x.FornecedorID,
-                        principalTable: "Fornecedores",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Lancamentos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UsuarioID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CategoriaFornecedorID = table.Column<int>(type: "int", nullable: false),
-                    Valor = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
-                    DataLancamento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TipoDeLancamento = table.Column<int>(type: "int", nullable: false),
-                    Recorrente = table.Column<bool>(type: "bit", nullable: false),
-                    Notificacao = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Lancamentos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Lancamentos_AspNetUsers_UsuarioID",
-                        column: x => x.UsuarioID,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Lancamentos_CategoriaFornecedor_CategoriaFornecedorID",
-                        column: x => x.CategoriaFornecedorID,
-                        principalTable: "CategoriaFornecedor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -329,34 +280,14 @@ namespace ManageMoney.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoriaFornecedor_CategoriaID",
-                table: "CategoriaFornecedor",
-                column: "CategoriaID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CategoriaFornecedor_FornecedorID",
-                table: "CategoriaFornecedor",
-                column: "FornecedorID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CategoriaFornecedor_UsuarioID",
-                table: "CategoriaFornecedor",
-                column: "UsuarioID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Categorias_UsuarioID",
                 table: "Categorias",
                 column: "UsuarioID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fornecedores_UsuarioID",
-                table: "Fornecedores",
-                column: "UsuarioID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lancamentos_CategoriaFornecedorID",
+                name: "IX_Lancamentos_CategoriaID",
                 table: "Lancamentos",
-                column: "CategoriaFornecedorID");
+                column: "CategoriaID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lancamentos_UsuarioID",
@@ -402,13 +333,7 @@ namespace ManageMoney.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "CategoriaFornecedor");
-
-            migrationBuilder.DropTable(
                 name: "Categorias");
-
-            migrationBuilder.DropTable(
-                name: "Fornecedores");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

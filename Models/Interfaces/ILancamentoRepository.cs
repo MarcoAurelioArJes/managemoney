@@ -7,6 +7,5 @@ namespace managemoney.Models.Interfaces
 {
     public interface ILancamentoRepository : IBaseRepository<LancamentoModel>
     {
-        
     }
 }

@@ -6,6 +6,9 @@ namespace managemoney.Models
 {
     public class UsuarioModel : IdentityUser
     {
+        public UsuarioModel()
+        : base() { }
+
         [Required, MaxLength(11)]
         public string Cpf { get; set; }
         [Required, DataType(DataType.PhoneNumber)]
