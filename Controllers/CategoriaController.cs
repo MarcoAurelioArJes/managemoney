@@ -9,6 +9,7 @@ namespace managemoney.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
+    [Authorize]
     public class CategoriaController : ControllerBase
     {
         private IMapper _mapper;
@@ -21,7 +22,6 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("criar")]
-        [Authorize]
         public IActionResult Criar([FromBody] CriarCategoriaDTO categoria)
         {
             try
@@ -37,7 +37,6 @@ namespace managemoney.Controllers
         }
 
         [HttpGet("obterTodas")]
-        [Authorize]
         public IActionResult ObterTodas()
         {
             try
@@ -51,7 +50,6 @@ namespace managemoney.Controllers
         }
 
         [HttpGet("remover/{id}")]
-        [Authorize]
         public IActionResult Remover(int id)
         {
             try

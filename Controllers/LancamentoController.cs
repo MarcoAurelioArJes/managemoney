@@ -9,6 +9,7 @@ namespace managemoney.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
+    [Authorize]
     public class LancamentoController : Controller
     {
         private IMapper _mapper;
@@ -31,7 +32,6 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("cadastrar")]
-        [Authorize]
         public ActionResult Criar([FromBody] LancamentoDTO lancamento)
         {
             try
@@ -46,7 +46,6 @@ namespace managemoney.Controllers
         }
 
         [HttpPut("atualizar/{id}")]
-        [Authorize]
         public IActionResult Atualizar(int id, [FromBody] LancamentoDTO novoLancamento)
         {
             try
@@ -62,7 +61,6 @@ namespace managemoney.Controllers
         }
 
         [HttpGet("obterTodos")]
-        [Authorize]
         public IActionResult ObterTodos()
         {
             try
@@ -76,7 +74,6 @@ namespace managemoney.Controllers
         }
 
         [HttpGet("obterPorId/{id}")]
-        [Authorize]
         public ActionResult ObterPorId(int id)
         {
             try
@@ -90,7 +87,6 @@ namespace managemoney.Controllers
         }
 
         [HttpDelete("remover/{id}")]
-        [Authorize]
         public ActionResult Remover(int id)
         {
             try

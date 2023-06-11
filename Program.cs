@@ -1,16 +1,13 @@
 using System.Text;
 using managemoney.Models;
 using managemoney.Helpers;
-using managemoney.Services;
 using managemoney.Repositorios;
 using managemoney.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Data.SqlClient;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,27 +25,9 @@ builder
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddAuthentication(opts => 
-{
-    opts.DefaultAuthenticateScheme =
-        JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(opts => 
-{
-    opts.TokenValidationParameters = 
-    new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("asDASD@#%#SDASPOAOSD@#!213213asdasDASDASDASDSAd")),
-        ValidateAudience = false,
-        ValidateIssuer = false,
-        ClockSkew = TimeSpan.Zero
-    };
-});
+builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<ContextoDoUsuario>();
-builder.Services.AddScoped<GeradorDeTokenService>();
-builder.Services.AddScoped<AutenticacaoUsuarioService>();
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ILancamentoRepository, LancamentoRepository>();
@@ -67,11 +46,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(opcao => opcao.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();
-app.MapControllers();
 app.UseStaticFiles();
 app.UseEndpoints(endpoints =>
 {

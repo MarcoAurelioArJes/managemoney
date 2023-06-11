@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
 using managemoney.Repositorios.DTOs.UsuarioDTO;
-using managemoney.Services;
+using managemoney.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace managemoney.Controllers
 {
@@ -10,13 +11,13 @@ namespace managemoney.Controllers
     public class UsuarioController : Controller
     {
         private IUsuarioRepository _usuarioRepository;
-        private AutenticacaoUsuarioService _autenticacaoUsuarioService;
+        private SignInManager<UsuarioModel> _signInManager;
 
         public UsuarioController(IUsuarioRepository usuarioRepository,
-                                 AutenticacaoUsuarioService autenticacaoUsuarioService)
+                                 SignInManager<UsuarioModel> signInManager)
         {
             _usuarioRepository = usuarioRepository;
-            _autenticacaoUsuarioService = autenticacaoUsuarioService;
+            _signInManager = signInManager;
         }
 
         [HttpPost("cadastrar")]
@@ -34,17 +35,28 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUsuarioDTO usuarioDTO)
+        public async Task<IActionResult> Login([FromForm] LoginUsuarioDTO usuarioDTO)
         {
             try
             {
-                var token = await _autenticacaoUsuarioService.Login(usuarioDTO);
-                return new JsonResult(token);   
+                var resultado = await _signInManager.PasswordSignInAsync(usuarioDTO.Nome, usuarioDTO.Senha, false, false);
+                if (resultado.Succeeded)
+                {
+                    return LocalRedirect("/Lancamento");
+                }
+
+                return RedirectToAction("Login", "Inicio");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }           
         }
+    }
+
+    public class RespostaJson
+    {
+        public string Chave { get; set; }
+        public string Valor { get; set; }
     }
 }

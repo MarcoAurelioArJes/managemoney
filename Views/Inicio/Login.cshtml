@@ -13,15 +13,15 @@
                 </div>
             </div>
 
-            <Form id="loginForm">
+            <form asp-controller="usuario" asp-action="login" id="loginForm" method="post">
                 <!-- Campos Login -->
                 <div class="campoSign">
                     <label for="inputEmailEntrar"> Email </label>
-                    <input type="text" id="inputEmailEntrar" placeholder="exemplo@email.com">
+                    <input type="text" id="inputEmailEntrar" name="Nome" placeholder="exemplo@email.com">
                 </div>
                 <div class="campoSign">
                     <label for="inputSenhaEntrar"> Senha </label>
-                    <input type="password" id="inputSenhaEntrar">
+                    <input type="password" name="Senha" id="inputSenhaEntrar">
                 </div>
                 <div id="loginSettings">
                     <div>
@@ -31,7 +31,7 @@
                     <a href="#" class="recuperar_senha">Esqueceu a senha?</a>
                 </div>
                 <div class="divButton">
-                    <button class="signButton" id="LoginButton" asp-controller="Lancamento" asp-action="Lancamento">Entrar</button>
+                    <button type="submit" class="signButton">Entrar</button>
                 </div>
                 <div class="loginOptions">
                     <p>Se preferir, entre com uma rede social: </p>
@@ -47,7 +47,7 @@
                         </a>
                     </div>
                 </div>
-            </Form>
+            </form>
 
         </section>
 
@@ -57,9 +57,3 @@
     </section>
 
 </div>
-
-
-@section Scripts
-    {
-    <script type="text/javascript" src="~/js/login.js"></script>
-}
