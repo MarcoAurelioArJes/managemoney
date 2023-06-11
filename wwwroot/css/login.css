@@ -1,0 +1,125 @@
+﻿
+#loginConteudo {
+    display: flex;
+    margin: 10rem 0 0 0;
+    max-width: 80rem;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#sign {
+    width: 50;
+    height: 560px;
+    margin: auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.cards {
+    height: 100%;
+    width: 100%;
+    height: auto;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 1px 2px 2px lightgray;
+    background-color: transparent;
+}
+
+.iconSign {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.cabecalhoCard {
+    text-align: center;
+    margin: 10px 0 30px 0;
+    opacity: 0.9;
+    color: #0CA64E;
+}
+
+#textoCabecalhoLogin {
+    margin-bottom: 60px;
+}
+
+.campoSign {
+    padding: 0 20px 10px 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+    .campoSign input {
+        background-color: transparent;
+        margin-top: 10px;
+        border: none;
+        border-bottom: 1px solid lightgray;
+        outline: none;
+    }
+
+    .campoSign ::placeholder, #inputDataNascimento {
+        color: #d6dee2;
+    }
+
+.divButton {
+    align-items: center;
+    justify-items: center;
+    border-radius: 2px;
+    margin: 20px;
+    text-align: center;
+}
+
+.signButton {
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: 0.5px solid #4bb550;
+    background-color: #4bb550;
+    color: #FFF;
+    cursor: pointer;
+}
+
+    .signButton:hover {
+        background-color: #93c572;
+        border: 0.5px solid #93c572;
+    }
+
+#loginSettings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px 43.9px 20px;
+}
+
+.loginOptions {
+    border-top: 1px solid lightgray;
+    margin: 50px 20px 10px 20px;
+    text-align: center;
+}
+
+    .loginOptions p {
+        color: gray;
+        margin-top: 10px;
+    }
+
+.loginOptionsIcon {
+    width: 30px;
+    height: 30px;
+    margin: 15px 10px 0 10px;
+}
+
+#redesLogin {
+    display: flex;
+    justify-content: center;
+}
+
+#cadastro~/imgec {
+    width: 50%;
+}
+
+#imgLogin {
+    width: 700px;
+    height: 410px;
+}

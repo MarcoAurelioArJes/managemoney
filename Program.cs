@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,10 +57,7 @@ builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
-builder.Services.AddMvc(opts => 
-{
-    opts.EnableEndpointRouting = false;
-});
+builder.Services.AddMvc();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -69,8 +69,19 @@ app.UseCors(opcao => opcao.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 app.UseStaticFiles();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Inicio}/{action=Inicio}/{id?}");
+    endpoints.MapRazorPages();
+});
+
+var scope = app.Services.CreateScope();
+scope.ServiceProvider.GetService<ApplicationContext>().Database.Migrate();  
 
 app.Run();

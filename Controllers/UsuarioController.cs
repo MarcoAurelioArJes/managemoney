@@ -39,7 +39,7 @@ namespace managemoney.Controllers
             try
             {
                 var token = await _autenticacaoUsuarioService.Login(usuarioDTO);
-                return Ok(token);   
+                return new JsonResult(token);   
             }
             catch (Exception ex)
             {

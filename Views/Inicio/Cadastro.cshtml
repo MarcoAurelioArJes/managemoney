@@ -1,0 +1,51 @@
+﻿<div id="cadastroConteudo">
+
+    <section class="cards">
+
+        <!-- Cabecalho Cadastro -->
+        <div class="cabecalhoCard">
+            <img src="~/img/tela_Cadastro/cadastro_icon.png" class="iconSign" alt="">
+            <h2>
+                Crie sua Conta
+            </h2>
+        </div>
+
+        <!-- Campos Cadastro -->
+        <form id="SignupForm">
+            <div class="campoSign">
+                <label for="inputNome"> Nome </label>
+                <input type="text" id="inputNome" placeholder="Nome completo">
+            </div>
+            <div class="campoSign">
+                <label for="inputCpf"> CPF </label>
+                <input type="text" maxlength="11" id="inputCpf" placeholder="000.000.000-00">
+            </div>
+            <div class="campoSign">
+                <label for="inputDataNascimento"> Data Nascimento </label>
+                <input type="date" id="inputDataNascimento">
+            </div>
+            <div class="campoSign">
+                <label for="inputEmail"> Email </label>
+                <input type="text" id="inputEmail" placeholder="exemplo@email.com">
+            </div>
+            <div class="campoSign">
+                <label for="inputSenha"> Senha </label>
+                <input type="password" id="inputSenha">
+            </div>
+            <div class="campoSign">
+                <label for="inputConfirmaSenha"> Confirmar Senha </label>
+                <input type="password" id="inputConfirmaSenha">
+            </div>
+
+            <div id="cadastroButtonDiv">
+                <button id="cadastroButton" onclick="criarConta()"> Cadastrar </button>
+            </div>
+
+        </form>
+
+    </section>
+
+    <section id="cadastro~/imgec">
+        <img src="~/img/tela_Cadastro/loginIMG.png" alt="" id="imgCadastro">
+    </section>
+</div>

@@ -1,0 +1,65 @@
+﻿<div id="loginConteudo">
+
+    <section id="sign">
+
+        <section class="cards">
+
+            <!-- Cabecalho Login -->
+            <div class="cabecalhoCard">
+                <img src="~/img/tela_login/login_icon.png" class="iconSign" alt="">
+                <div id="textoCabecalhoLogin">
+                    <h2>Bem-vindo!</h2>
+                    <p> Faça Login em sua conta</p>
+                </div>
+            </div>
+
+            <Form id="loginForm">
+                <!-- Campos Login -->
+                <div class="campoSign">
+                    <label for="inputEmailEntrar"> Email </label>
+                    <input type="text" id="inputEmailEntrar" placeholder="exemplo@email.com">
+                </div>
+                <div class="campoSign">
+                    <label for="inputSenhaEntrar"> Senha </label>
+                    <input type="password" id="inputSenhaEntrar">
+                </div>
+                <div id="loginSettings">
+                    <div>
+                        <input type="checkbox" id="inputLembrarSenha">
+                        <label for="inputLembrarSenha"> Lembrar senha? </label>
+                    </div>
+                    <a href="#" class="recuperar_senha">Esqueceu a senha?</a>
+                </div>
+                <div class="divButton">
+                    <button class="signButton" id="LoginButton" asp-controller="Lancamento" asp-action="Lancamento">Entrar</button>
+                </div>
+                <div class="loginOptions">
+                    <p>Se preferir, entre com uma rede social: </p>
+                    <div id="redesLogin">
+                        <a href="">
+                            <img src="~/img/tela_login/google_icon.png" class="loginOptionsIcon" alt="Google">
+                        </a>
+                        <a href="">
+                            <img src="~/img//tela_login/facebook_icon.png" class="loginOptionsIcon" alt="facebook">
+                        </a>
+                        <a href="">
+                            <img src="~/img/tela_login/twitter_icon.png" class="loginOptionsIcon" alt="facebook">
+                        </a>
+                    </div>
+                </div>
+            </Form>
+
+        </section>
+
+    </section>
+    <section>
+        <img src="~/img/tela_login/loginIMG.png" alt="" id="imgLogin">
+    </section>
+
+</div>
+
+
+@section Scripts
+    {
+    <script type="text/javascript" src="~/js/login.js"></script>
+}
