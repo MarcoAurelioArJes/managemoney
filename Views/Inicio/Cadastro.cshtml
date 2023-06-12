@@ -1,51 +1,66 @@
-﻿<div id="cadastroConteudo">
+﻿@model CadastroUsuarioViewModel
 
-    <section class="cards">
-
-        <!-- Cabecalho Cadastro -->
-        <div class="cabecalhoCard">
-            <img src="~/img/tela_Cadastro/cadastro_icon.png" class="iconSign" alt="">
-            <h2>
-                Crie sua Conta
-            </h2>
-        </div>
-
-        <!-- Campos Cadastro -->
-        <form id="SignupForm">
-            <div class="campoSign">
-                <label for="inputNome"> Nome </label>
-                <input type="text" id="inputNome" placeholder="Nome completo">
-            </div>
-            <div class="campoSign">
-                <label for="inputCpf"> CPF </label>
-                <input type="text" maxlength="11" id="inputCpf" placeholder="000.000.000-00">
-            </div>
-            <div class="campoSign">
-                <label for="inputDataNascimento"> Data Nascimento </label>
-                <input type="date" id="inputDataNascimento">
-            </div>
-            <div class="campoSign">
-                <label for="inputEmail"> Email </label>
-                <input type="text" id="inputEmail" placeholder="exemplo@email.com">
-            </div>
-            <div class="campoSign">
-                <label for="inputSenha"> Senha </label>
-                <input type="password" id="inputSenha">
-            </div>
-            <div class="campoSign">
-                <label for="inputConfirmaSenha"> Confirmar Senha </label>
-                <input type="password" id="inputConfirmaSenha">
+<div asp-validation-summary="ModelOnly" class="val-summary text-danger mb-3"></div>
+<div id="cadastroConteudo">
+    
+    <!-- Formulário -->
+    <section class="card">
+            <!-- Cabecalho formulário -->
+            <div class="cabecalhoCard">
+                <span>Cadastro</span>
+                <span id="cabecalhoCardSubtitulo">Já possui Conta? 
+                    <a href="login.html" style="color: #4bb550;">Entre aqui</a> 
+                </span>
             </div>
 
-            <div id="cadastroButtonDiv">
-                <button id="cadastroButton" onclick="criarConta()"> Cadastrar </button>
-            </div>
-
-        </form>
+            <!-- Campos Formulário -->
+            <form asp-controller="usuario" asp-action="cadastrar" id="cadastroForm" method="post">
+                <div class="campoCadastroForm">
+                    <label asp-for="@Model.Nome" style="margin-left: 0.2rem;"> Nome </label>
+                    <input asp-for="@Model.Nome" type="text" id="inputNome" placeholder="Nome completo">
+                    <span asp-validation-for="@Model.Nome" class="danger"></span>
+                </div>
+                <div class="campoCadastroForm">
+                    <label asp-for="@Model.Cpf" style="margin-left: 0.2rem;"> CPF </label>
+                    <input asp-for="@Model.Cpf" type="text" maxlength="11" id="inputCpf" placeholder="000.000.000-00">
+                    <span asp-validation-for="@Model.Cpf" class="danger"></span>
+                </div>
+                <div class="campoCadastroForm">
+                    <label asp-for="@Model.DataNascimento" style="margin-left: 0.2rem;"> Data Nascimento </label>
+                    <input asp-for="@Model.DataNascimento" type="date" id="inputDataNascimento">
+                    <span asp-validation-for="@Model.DataNascimento" class="danger"></span>
+                </div>
+                <div class="campoCadastroForm">
+                    <label asp-for="@Model.Email" style="margin-left: 0.2rem;"> Email </label>
+                    <input asp-for="@Model.Email" type="text" id="inputEmail" placeholder="exemplo@email.com" >
+                    <span asp-validation-for="@Model.Email" class="danger"></span>
+                </div>
+                <div class="campoCadastroForm">
+                    <label asp-for="@Model.Telefone" style="margin-left: 0.2rem;"> Telefone </label>
+                    <input asp-for="@Model.Telefone" type="phone" placeholder="(00) 0 0000-0000">
+                    <span asp-validation-for="@Model.Telefone" class="danger"></span>
+                </div>
+                <div class="campoCadastroForm" >
+                    <label asp-for="@Model.Senha" for="inputSenha" style="margin-left: 0.2rem;"> Senha </label>
+                    <input asp-for="@Model.Senha" type="password" id="inputSenha">
+                    <span asp-validation-for="@Model.Senha" class="danger"></span>
+                </div>
+                <div class="campoCadastroForm">
+                    <label asp-for="@Model.ConfirmaSenha" for="inputConfirmaSenha" style="margin-left: 0.2rem;"> Confirmar Senha </label>
+                    <input asp-for="@Model.ConfirmaSenha" type="password" id="inputConfirmaSenha">
+                    <span asp-validation-for="@Model.ConfirmaSenha" class="danger"></span>
+                </div>
+                <div id="cadastroButtonDiv">
+                    <button type="submit" id="cadastroButton"> Criar Conta </button>
+                </div>
+            </form>
 
     </section>
 
-    <section id="cadastro~/imgec">
-        <img src="~/img/tela_Cadastro/loginIMG.png" alt="" id="imgCadastro">
+    <!-- Imagem -->
+    <section id="cadastroImgSec">
+        <span style="font-size: 3.5rem;"> Crie sua conta</span>
+        <span style="font-size: 1.2rem;"> E aproveite agora todos os recursos do <span style="color: #4bb550;">Manage Money</span>!</span>
+        <img src="~/img/tela_Cadastro/loginIMG.svg" alt="" id="imgCadastro">
     </section>
 </div>

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace managemoney.Models.ViewModels
+namespace managemoney.Models.ViewModels.Usuario
 {
     public class LoginViewModel
     {
@@ -12,5 +12,6 @@ namespace managemoney.Models.ViewModels
         public string Nome { get; set; }
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório."), DataType(DataType.Password)]
         public string Senha { get; set; }
+        public bool LembrarSenha { get; set; }
     }
 }

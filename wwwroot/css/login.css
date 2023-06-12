@@ -1,125 +1,152 @@
-﻿
-#loginConteudo {
+﻿/* conteudo */
+#loginConteudo
+{
     display: flex;
-    margin: 10rem 0 0 0;
-    max-width: 80rem;
     align-items: center;
     justify-content: center;
-}
-
-
-#sign {
-    width: 50;
-    height: 560px;
-    margin: auto;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-}
-
-.cards {
-    height: 100%;
-    width: 100%;
+    margin: 6.5rem 0 4rem 0;
     height: auto;
-    margin: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 1px 2px 2px lightgray;
-    background-color: transparent;
 }
 
-.iconSign {
-    max-width: 80px;
-    max-height: 80px;
-}
+/* Formulário */
+    .card
+    {
+        width: 27rem;
+        height: auto;
+        margin: 3rem;
+        border-radius: 10px;
+        box-shadow: 0px 10px 15px 10px #F7F7F8;
+    }
 
-.cabecalhoCard {
-    text-align: center;
-    margin: 10px 0 30px 0;
-    opacity: 0.9;
-    color: #0CA64E;
-}
+    .cabecalhoCard
+    {
+        margin: 2rem 1.25rem 4rem 1.25rem;
+        color: #515154;
+        font-size: 2rem;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+    }
 
-#textoCabecalhoLogin {
-    margin-bottom: 60px;
-}
+    #cabecalhoCardSubtitulo
+    {
+        font-size: 1rem; 
+        font-weight: 500;
+        color: #b7bdc0;
+    }
 
-.campoSign {
-    padding: 0 20px 10px 20px;
+        /* campo formulário */
+        .campoLoginForm
+        {
+            padding: 0 20px 10px 20px;
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .campoLoginForm input{
+            margin-top: 0.5rem;
+            padding: 0.7rem;
+            border: 1px solid lightgray;
+            border-radius: 0.5rem;
+
+        }
+
+        .campoLoginForm ::placeholder , #inputDataNascimento
+        {
+            color: #d6dee2;
+        }
+
+        #loginSettings{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+
+        #lembrarSenha
+        {
+            display: flex;
+            margin: 0.5rem 1.25rem 0 1.25rem;
+            align-items: center;
+            cursor:pointer;
+        }
+
+        /* Botão */
+        #loginButtonDiv
+        {
+            margin: 3rem;
+            text-align: center;
+        }
+
+        #loginButton
+        {
+            width: 12rem;
+            border-radius: 2rem;
+            padding: 0.6rem 1.25rem;
+            font-size: 1rem;
+            border: 0.5px solid #4bb550;
+            background-color: #4bb550;
+            color: #FFF;
+            cursor: pointer;
+        }
+
+        #loginButton:hover
+        {
+            background-color: #93c572;
+            border: 0.5px solid #93c572;
+        }
+
+        /* Opções login */
+
+
+        #loginOptions
+        {
+            border-top: 1px solid lightgray;
+            margin: 0 1.25rem 0.6rem 1.25rem;
+            text-align: center;
+        }
+        
+        #loginOptions p
+        {
+            color: gray;
+            margin: 0.5rem;
+        }
+        
+        #redesLogin{
+        display: flex;
+        justify-content:center;
+        }
+
+        .loginOptionsLink
+        {
+            display: flex;
+            align-items: center;
+        }
+
+        .loginOptionsIcon
+        {
+            width: 1.9rem;
+            height: 1.9rem;
+            margin: 1rem;
+        }
+
+
+/* imagem */
+#loginImgSec
+{
+    width: auto;
+    margin: 3rem 0 3rem 3rem;
     display: flex;
     flex-direction: column;
-    font-size: 12px;
-    opacity: 0.8;
-}
-
-    .campoSign input {
-        background-color: transparent;
-        margin-top: 10px;
-        border: none;
-        border-bottom: 1px solid lightgray;
-        outline: none;
-    }
-
-    .campoSign ::placeholder, #inputDataNascimento {
-        color: #d6dee2;
-    }
-
-.divButton {
-    align-items: center;
-    justify-items: center;
-    border-radius: 2px;
-    margin: 20px;
     text-align: center;
+    color: #515154;
+    font-weight: 600;
 }
 
-.signButton {
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 15px;
-    border: 0.5px solid #4bb550;
-    background-color: #4bb550;
-    color: #FFF;
-    cursor: pointer;
-}
-
-    .signButton:hover {
-        background-color: #93c572;
-        border: 0.5px solid #93c572;
-    }
-
-#loginSettings {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 20px 43.9px 20px;
-}
-
-.loginOptions {
-    border-top: 1px solid lightgray;
-    margin: 50px 20px 10px 20px;
-    text-align: center;
-}
-
-    .loginOptions p {
-        color: gray;
-        margin-top: 10px;
-    }
-
-.loginOptionsIcon {
-    width: 30px;
-    height: 30px;
-    margin: 15px 10px 0 10px;
-}
-
-#redesLogin {
-    display: flex;
-    justify-content: center;
-}
-
-#cadastro~/imgec {
-    width: 50%;
-}
-
-#imgLogin {
+#imgLogin
+{
     width: 700px;
     height: 410px;
 }

@@ -1,9 +1,9 @@
-using System.Text;
 using AutoMapper;
+using System.Text;
 using managemoney.Models;
 using managemoney.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using managemoney.Models.ViewModels.Usuario;
 using managemoney.Repositorios.DTOs.UsuarioDTO;
 
 namespace managemoney.Repositorios
@@ -13,8 +13,9 @@ namespace managemoney.Repositorios
         private IMapper _mapper;
         private UserManager<UsuarioModel> _usermanager;
 
-        public UsuarioRepository(IMapper mapper, UserManager<UsuarioModel> userManager, 
-                              SignInManager<UsuarioModel> signInManager)
+        public UsuarioRepository(IMapper mapper, 
+                                UserManager<UsuarioModel> userManager, 
+                                SignInManager<UsuarioModel> signInManager)
         {
             _mapper = mapper;
             _usermanager = userManager;
@@ -25,20 +26,11 @@ namespace managemoney.Repositorios
             throw new NotImplementedException();
         }
 
-        public async Task Cadastrar(CriarUsuarioDTO usuarioDto) 
+        public async Task<IdentityResult> Cadastrar(CadastroUsuarioViewModel usuarioDto) 
         {
-                var usuario = _mapper.Map<UsuarioModel>(usuarioDto);
-            
-                var resultado = await _usermanager.CreateAsync(usuario, usuarioDto.Senha);
-                
-                if (!resultado.Succeeded) 
-                {
-                    var erros = new StringBuilder();
-                    foreach(var erro in resultado.Errors) 
-                        erros.AppendLine(erro.Description + " ");
-
-                    throw new Exception(erros.ToString());
-                }
+            var usuario = _mapper.Map<UsuarioModel>(usuarioDto);
+        
+            return await _usermanager.CreateAsync(usuario, usuarioDto.Senha);
         }
     }
 }

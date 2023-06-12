@@ -3,12 +3,10 @@ using managemoney.Models.Interfaces;
 using managemoney.Repositorios.DTOs.UsuarioDTO;
 using managemoney.Models;
 using Microsoft.AspNetCore.Identity;
-using managemoney.Models.ViewModels;
+using managemoney.Models.ViewModels.Usuario;
 
 namespace managemoney.Controllers
 {
-    [ApiController]
-    [Route("[Controller]")]
     public class UsuarioController : Controller
     {
         private IUsuarioRepository _usuarioRepository;
@@ -22,17 +20,20 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("cadastrar")]
-        public async Task<IActionResult> Cadastrar([FromBody] CriarUsuarioDTO usuarioDTO)
+        public async Task<IActionResult> Cadastrar([FromForm] CadastroUsuarioViewModel usuario)
         {
-            try
+            if(ModelState.IsValid)
             {
-                await _usuarioRepository.Cadastrar(usuarioDTO);
-                return Ok();   
+                var resultado = await _usuarioRepository.Cadastrar(usuario);
+                if (!resultado.Succeeded) 
+                {
+                    foreach(var erro in resultado.Errors) 
+                        ModelState.AddModelError(erro.Code, erro.Description);
+                }
+                return View("~/Views/Inicio/Login.cshtml");
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }           
+
+            return View("~/Views/Inicio/Cadastro.cshtml");    
         }
 
         [HttpPost("login")]
@@ -40,14 +41,20 @@ namespace managemoney.Controllers
         {
             if(ModelState.IsValid)
             {
-                var resultado = await _signInManager.PasswordSignInAsync(usuario.Nome, usuario.Senha, false, false);
+                var resultado = await _signInManager.PasswordSignInAsync(usuario.Nome, usuario.Senha, usuario.LembrarSenha, false);
                 if (resultado.Succeeded)
                 {
-                    return LocalRedirect("/Lancamento");
+                    return LocalRedirect("/lancamento/lancamentos");
                 }
             }
 
             return View("~/Views/Inicio/Login.cshtml");
+        }
+
+        public async Task<IActionResult> Logout([FromForm] LoginViewModel usuario)
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Inicio", "Inicio");
         }
     }
 

@@ -1,65 +1,49 @@
 ﻿@model LoginViewModel
 
 <div id="loginConteudo">
-
-    <section id="sign">
-
-        <section class="cards">
-
-            <!-- Cabecalho Login -->
-            <div class="cabecalhoCard">
-                <img src="~/img/tela_login/login_icon.png" class="iconSign" alt="">
-                <div id="textoCabecalhoLogin">
-                    <h2>Bem-vindo!</h2>
-                    <p> Faça Login em sua conta</p>
-                </div>
+        
+    <!-- Formulário -->
+    <section class="card">
+            
+        <!-- Cabecalho Login -->
+        <div class="cabecalhoCard">
+            <span>Login</span>
+            <span id="cabecalhoCardSubtitulo">Ainda não possui conta? 
+                <a asp-action="cadastrar" style="color: #4bb550;">Cadastre-se aqui</a> 
+            </span>
+        </div>
+            
+        <!-- Campos formulário -->
+        <form asp-controller="usuario" asp-action="login" id="loginForm">
+            <div class="campoLoginForm">
+                <label asp-for="@Model.Nome" style="margin-left: 0.2rem;">Nome</label>
+                <input type="text" id="inputNomeEntrar" asp-for="@Model.Nome" placeholder="JoaoAntonio321">
+                <span asp-validation-for="@Model.Nome" class="danger"></span>
             </div>
-            <div asp-validation-summary="ModelOnly"></div>
+                <div class="campoLoginForm">
+                    <section id="loginSettings">
+                        <label asp-for="@Model.Senha" style="margin-left: 0.2rem;"> Senha </label>
+                        <a href="#" style="color: #4bb550;">Esqueceu a senha?</a>
+                    </section>
+                    <input asp-for="@Model.Senha" type="password" id="inputSenhaEntrar">
+                    <span asp-validation-for="@Model.Senha" class="danger"></span>
+                </div>
+            <div id="lembrarSenha">
+                <input asp-for="@Model.LembrarSenha" type="checkbox" id="inputLembrarSenha">
+                <label asp-for="@Model.LembrarSenha" for="inputLembrarSenha"> Lembrar senha? </label>     
+            </div>
 
-            <form asp-controller="usuario" asp-action="login" id="loginForm" method="post">
-                <!-- Campos Login -->
-                <div class="campoSign">
-                    <label for="inputEmailEntrar">Email</label>
-                    <input type="text" id="inputEmailEntrar" asp-for="@Model.Nome" placeholder="exemplo@email.com">
-                    <span asp-validation-for="@Model.Nome" class="text-danger"></span>
-                </div>
-                <div class="campoSign">
-                    <label for="inputSenhaEntrar">Senha</label>
-                    <input type="password" asp-for="@Model.Senha" id="inputSenhaEntrar"> 
-                    <span asp-validation-for="@Model.Senha" class="text-danger"></span>
-                </div>
-                <div id="loginSettings">
-                    <div>
-                        <input type="checkbox" id="inputLembrarSenha">
-                        <label for="inputLembrarSenha"> Lembrar senha? </label>
-                    </div>
-                    <a href="#" class="recuperar_senha">Esqueceu a senha?</a>
-                </div>
-                <div class="divButton">
-                    <button type="submit" class="signButton">Entrar</button>
-                </div>
-                
-<!--                <div class="loginOptions">
-                    <p>Se preferir, entre com uma rede social: </p>
-                    <div id="redesLogin">
-                        <a href="">
-                            <img src="~/img/tela_login/google_icon.png" class="loginOptionsIcon" alt="Google">
-                        </a>
-                        <a href="">
-                            <img src="~/img//tela_login/facebook_icon.png" class="loginOptionsIcon" alt="facebook">
-                        </a>
-                        <a href="">
-                            <img src="~/img/tela_login/twitter_icon.png" class="loginOptionsIcon" alt="facebook">
-                        </a>
-                    </div>
-                </div>-->
-            </form>
-
-        </section>
-
-    </section>
-    <section>
-        <img src="~/img/tela_login/loginIMG.png" alt="" id="imgLogin">
+            <div id="loginButtonDiv">
+                <button type="submit" id="loginButton"> Entrar </button>
+            </div>
+        </Form>  
     </section>
 
+    <!-- imagem -->
+    <section id="loginImgSec">
+        <span style="font-size: 3.5rem;"> Bem-vindo!!</span>
+        <span style="font-size: 1.2rem;"> Estávamos esperando pelo seu retorno</span>
+        <img src="~/img/tela_login/loginIMG.svg" alt="" id="imgLogin">
+    </section>
+            
 </div>
