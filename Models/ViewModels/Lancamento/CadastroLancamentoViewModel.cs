@@ -9,12 +9,16 @@ namespace managemoney.Models.ViewModels.Lancamento
     {   
         [Required]
         public int CategoriaID { get; set; }
+        
         [Required]
         public DateTime DataLancamento { get; set; }
+        
         [Required]
         public decimal Valor { get; set; }
-        [Required(AllowEmptyStrings = true), MaxLength(3000)]
-        public string Descricao { get; set; }
+
+        [MaxLength(3000)]
+        public string? Descricao { get; set; }
+
         [Required]
         public TipoDeLancamentoEnum TipoDeLancamento { get; set; }
 

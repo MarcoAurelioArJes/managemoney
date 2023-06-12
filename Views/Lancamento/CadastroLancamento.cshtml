@@ -2,10 +2,10 @@
 
 @model CadastroLancamentoViewModel
 
-
 <main class="mainListaLancamentos">
+    @Html.ValidationSummary()
     <section>
-        <form asp-controller="lancamento" asp-action="cadastrar">
+        <form asp-controller="lancamento" asp-action="cadastrar" method="post">
             <h2 class="titulo">Cadastro de Lançamentos</h2>
            
             <div>
@@ -13,7 +13,13 @@
                 <input asp-for="@Model.DataLancamento" type="date" id="data" name="data">
                 <span asp-validation-for="@Model.DataLancamento" class="danger"></span>
             </div>
-            
+
+            <div>
+                <label asp-for="@Model.Valor" id="labelData">Valor:</label>
+                <input asp-for="@Model.Valor" id="inputValor" type="text" name="valor">
+                <span asp-validation-for="@Model.Valor" class="danger"></span>
+            </div>
+
             <label id="labelTipo" for="tipo">Tipo de lançamento:</label>
             <select id="tipo" name="tipo" asp-for="@Model.TipoDeLancamento">
                 <option value="">Selecione uma opção</option>
@@ -21,21 +27,35 @@
                 <option value="1">Despesa</option>
             </select>
             
-            <label id="labelTipo" for="tipo">Categorias:</label>
-            <select id="tipo" name="tipo" asp-for="@Model.CategoriaID" asp-items="@Model.Categorias">
-                <option value="">Selecione uma opção</option>
-                @foreach(var categoria in Model.Categorias)
-                {
-                    <option value="@categoria.Id">@categoria.Nome</option>
-                }
+            <label>Categorias:</label>
+            <select asp-for="@Model.CategoriaID" asp-items="@Model.Categorias" >
+                <option selected value="">Selecione uma opção</option>
             </select>
             
             <div>
                 <label id="labelRecorrencia" for="recorrencia">Descricao:</label>
-                <textarea name="" id="" cols="30" rows="10" asp-for="@Model.Descricao"></textarea>
+                <input id="" cols="30" rows="10" asp-for="@Model.Descricao" type="text">
             </div>
 
-            <input type="submit" value="Salvar" id="botaoSalvar">
+            <input type="submit" value="Salvar" id="botaoSalvar" onclick="converteData();">
             </form>
     </section>
 </main>
+
+@section Scripts {
+    <script type="text/javascript">
+        window.addEventListener("load", function (event) {
+            let elemento = $("#inputValor").val();
+            elemento.toLocaleString("pt-BR",
+                { style: "currency", currency: "BRL" });
+        });
+
+        function converteData()
+        {
+            let inputData = $("#data").val();
+            let data = new Date();
+            inputData.value = data.getDay() + "/" + data.getMonth() + "/" + data.getFullYear();
+            console.log(inputData.value)
+        }
+    </script>
+}

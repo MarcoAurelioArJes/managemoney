@@ -31,3 +31,13 @@
     background-color: #288b2d;
     transition: 0.5s;
 }
+
+.validation-summary-errors {
+    background: #feb3b3;
+    border: 1px solid red;
+}
+
+.validation-summary-errors ul {
+    opacity: 1;
+    list-style: none;
+}

@@ -4,6 +4,7 @@ using managemoney.Repositorios.DTOs.UsuarioDTO;
 using managemoney.Models;
 using Microsoft.AspNetCore.Identity;
 using managemoney.Models.ViewModels.Usuario;
+using ManageMoney.Constantes;
 
 namespace managemoney.Controllers
 {
@@ -30,10 +31,10 @@ namespace managemoney.Controllers
                     foreach(var erro in resultado.Errors) 
                         ModelState.AddModelError(erro.Code, erro.Description);
                 }
-                return View("~/Views/Inicio/Login.cshtml");
+                return View(ConstantesDasViews.ViewLoginUsuario);
             }
 
-            return View("~/Views/Inicio/Cadastro.cshtml");    
+            return View(ConstantesDasViews.ViewLoginUsuario);    
         }
 
         [HttpPost("login")]
@@ -48,7 +49,7 @@ namespace managemoney.Controllers
                 }
             }
 
-            return View("~/Views/Inicio/Login.cshtml");
+            return View(ConstantesDasViews.ViewLoginUsuario);
         }
 
         public async Task<IActionResult> Logout([FromForm] LoginViewModel usuario)
