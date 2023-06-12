@@ -1,4 +1,6 @@
-﻿<div id="loginConteudo">
+﻿@model LoginViewModel
+
+<div id="loginConteudo">
 
     <section id="sign">
 
@@ -12,16 +14,19 @@
                     <p> Faça Login em sua conta</p>
                 </div>
             </div>
+            <div asp-validation-summary="ModelOnly"></div>
 
             <form asp-controller="usuario" asp-action="login" id="loginForm" method="post">
                 <!-- Campos Login -->
                 <div class="campoSign">
-                    <label for="inputEmailEntrar"> Email </label>
-                    <input type="text" id="inputEmailEntrar" name="Nome" placeholder="exemplo@email.com">
+                    <label for="inputEmailEntrar">Email</label>
+                    <input type="text" id="inputEmailEntrar" asp-for="@Model.Nome" placeholder="exemplo@email.com">
+                    <span asp-validation-for="@Model.Nome" class="text-danger"></span>
                 </div>
                 <div class="campoSign">
-                    <label for="inputSenhaEntrar"> Senha </label>
-                    <input type="password" name="Senha" id="inputSenhaEntrar">
+                    <label for="inputSenhaEntrar">Senha</label>
+                    <input type="password" asp-for="@Model.Senha" id="inputSenhaEntrar"> 
+                    <span asp-validation-for="@Model.Senha" class="text-danger"></span>
                 </div>
                 <div id="loginSettings">
                     <div>
@@ -33,7 +38,8 @@
                 <div class="divButton">
                     <button type="submit" class="signButton">Entrar</button>
                 </div>
-                <div class="loginOptions">
+                
+<!--                <div class="loginOptions">
                     <p>Se preferir, entre com uma rede social: </p>
                     <div id="redesLogin">
                         <a href="">
@@ -46,7 +52,7 @@
                             <img src="~/img/tela_login/twitter_icon.png" class="loginOptionsIcon" alt="facebook">
                         </a>
                     </div>
-                </div>
+                </div>-->
             </form>
 
         </section>

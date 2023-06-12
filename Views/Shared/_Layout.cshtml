@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/inicio.css" />
     <link rel="stylesheet" href="~/css/cadastro.css" />
     <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/css/lancamento.css" />
 </head>
 <body>
     <header id="home" class="cabecalho">
@@ -33,12 +34,12 @@
                         </a>
                     </li>
                     <li>
-                        <a asp-action="login" class="linksCabecalho">
+                        <a asp-controller="inicio" asp-action="login" class="linksCabecalho">
                             Entrar
                         </a>
                     </li>
                     <li>
-                        <a asp-action="cadastro" id="cadastroNav" class="linksCabecalho">
+                        <a asp-controller="inicio" asp-action="cadastro" id="cadastroNav" class="linksCabecalho">
                             Cadastre-se
                         </a>
                     </li>

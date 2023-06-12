@@ -1,0 +1,53 @@
+main{
+    padding: 30px 50px;
+}
+
+.conteudoPrincipalListagem {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.titulo {
+    text-align: center;
+    color: #006400;
+}
+
+.listaDeLancamentos {
+    list-style: none;
+}
+
+.itemListaDeLancamentos{
+    display: flex;
+    background-color: #d8f0da;
+    border : 1px solid #4bb550;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    justify-content: space-between;
+}
+
+.containerDeBotoes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.botao {
+    display: flex;
+    width: 100px;
+    height: 25px;
+    border: 1px solid #4bb550;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #FFF;
+}
+
+.btnVisualizar {
+    background-color: #3caf3c;
+}
+
+.btnEditar {
+    background-color: #d5e6d5;
+}

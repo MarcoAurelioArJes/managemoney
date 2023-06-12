@@ -1,12 +1,9 @@
-using System.Text;
 using managemoney.Models;
 using managemoney.Helpers;
 using managemoney.Repositorios;
 using managemoney.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,7 +43,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(opcao => opcao.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();

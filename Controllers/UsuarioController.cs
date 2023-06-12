@@ -3,6 +3,7 @@ using managemoney.Models.Interfaces;
 using managemoney.Repositorios.DTOs.UsuarioDTO;
 using managemoney.Models;
 using Microsoft.AspNetCore.Identity;
+using managemoney.Models.ViewModels;
 
 namespace managemoney.Controllers
 {
@@ -35,22 +36,18 @@ namespace managemoney.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromForm] LoginUsuarioDTO usuarioDTO)
+        public async Task<IActionResult> Login([FromForm] LoginViewModel usuario)
         {
-            try
+            if(ModelState.IsValid)
             {
-                var resultado = await _signInManager.PasswordSignInAsync(usuarioDTO.Nome, usuarioDTO.Senha, false, false);
+                var resultado = await _signInManager.PasswordSignInAsync(usuario.Nome, usuario.Senha, false, false);
                 if (resultado.Succeeded)
                 {
                     return LocalRedirect("/Lancamento");
                 }
-
-                return RedirectToAction("Login", "Inicio");
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }           
+
+            return View("~/Views/Inicio/Login.cshtml");
         }
     }
 
