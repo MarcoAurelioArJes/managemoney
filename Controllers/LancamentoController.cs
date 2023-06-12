@@ -5,6 +5,7 @@ using managemoney.Models.Interfaces;
 using managemoney.Repositorios.DTOs.LancamentosDTO;
 using Microsoft.AspNetCore.Authorization;
 using managemoney.Models.ViewModels.Lancamento;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace managemoney.Controllers
 {
@@ -28,8 +29,8 @@ namespace managemoney.Controllers
             _categoriaRepository = categoriaRepository;
         }
 
-        [HttpGet("lancamento")]
-        public IActionResult Lancamento()
+        [HttpGet("lancamentos")]
+        public IActionResult Lancamentos()
         {
             var lancamentos = _lancamentoRepository.ObterTodos();  
             return View(_mapper.Map<List<LancamentosViewModel>>(lancamentos));
@@ -38,8 +39,15 @@ namespace managemoney.Controllers
         [HttpGet("cadastroLancamento")]
         public IActionResult CadastroLancamento()
         {
-            var viewCadLancamento = new CadastroLancamentoViewModel(_categoriaRepository);
-            viewCadLancamento.Categorias = _categoriaRepository.ObterTodos();
+            var viewCadLancamento = new CadastroLancamentoViewModel();
+            foreach(var categoria in _categoriaRepository.ObterTodos())
+            {
+                viewCadLancamento.Categorias.Add(new SelectListItem
+                { 
+                    Text = categoria.Nome,
+                    Value = categoria.Id.ToString()
+                });
+            }
             return View(viewCadLancamento);
         }
 

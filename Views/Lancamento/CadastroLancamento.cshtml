@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="~/css/cadastroLancamento.css" />
+
 @model CadastroLancamentoViewModel
 
 
@@ -20,7 +22,7 @@
             </select>
             
             <label id="labelTipo" for="tipo">Categorias:</label>
-            <select id="tipo" name="tipo" asp-for="@Model.CategoriaID">
+            <select id="tipo" name="tipo" asp-for="@Model.CategoriaID" asp-items="@Model.Categorias">
                 <option value="">Selecione uma opção</option>
                 @foreach(var categoria in Model.Categorias)
                 {

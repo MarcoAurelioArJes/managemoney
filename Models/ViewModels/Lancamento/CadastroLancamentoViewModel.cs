@@ -1,25 +1,12 @@
 using managemoney.Models.Enums;
 using managemoney.Models.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace managemoney.Models.ViewModels.Lancamento
 {
     public class CadastroLancamentoViewModel
     {   
-        
-        private ICategoriaRepository _categoriaRepository;
-        public CadastroLancamentoViewModel() 
-        {
-            Categorias = new List<CategoriaModel>();
-
-        }
-        public CadastroLancamentoViewModel(ICategoriaRepository categoriaRepository)
-        : this()
-        {
-            _categoriaRepository = categoriaRepository;
-
-        }
-
         [Required]
         public int CategoriaID { get; set; }
         [Required]
@@ -31,6 +18,6 @@ namespace managemoney.Models.ViewModels.Lancamento
         [Required]
         public TipoDeLancamentoEnum TipoDeLancamento { get; set; }
 
-        public List<CategoriaModel> Categorias { get; set; }
+        public List<SelectListItem> Categorias { get; set; } = new List<SelectListItem>();
     }
 }

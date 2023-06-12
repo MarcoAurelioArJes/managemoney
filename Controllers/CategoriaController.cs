@@ -7,10 +7,9 @@ using managemoney.Repositorios.DTOs.CategoriaDTO;
 
 namespace managemoney.Controllers
 {
-    [ApiController]
     [Route("[Controller]")]
     [Authorize]
-    public class CategoriaController : ControllerBase
+    public class CategoriaController : Controller
     {
         private IMapper _mapper;
         private ICategoriaRepository _categoriaRepository;
@@ -19,6 +18,11 @@ namespace managemoney.Controllers
         {
             _categoriaRepository = categoriaRepository;
             _mapper = mapper;
+        }
+
+        public IActionResult CadastroCategoria()
+        {
+            return View();
         }
 
         [HttpPost("criar")]
