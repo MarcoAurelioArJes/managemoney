@@ -10,16 +10,6 @@
     <div id="cabecalhoNav">
         <nav>
             <ul>
-                <li>
-                    <a href="#sobre" class="linksCabecalho">
-                        Sobre
-                    </a>
-                </li>
-                <li>
-                    <a href="#contato" class="linksCabecalho">
-                        Contato
-                    </a>
-                </li>
                 @if (Context.User.Identity.IsAuthenticated)
                 {
                     <li>
@@ -27,6 +17,19 @@
                             Olá, <b>@Context.User.Identity.Name</b>
                         </a>
                     </li>
+
+                    <li>
+                        <a asp-controller="lancamento" asp-action="lancamentos" class="linksCabecalho">
+                            Lançamento
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="categoria" asp-action="categorias" class="linksCabecalho">
+                            Categoria
+                        </a>
+                    </li>
+
                     <li>
                         <a asp-controller="usuario" asp-action="logout" class="linksCabecalho">
                             Sair
@@ -35,6 +38,16 @@
                 }
                 else 
                 {
+                    <li>
+                        <a href="#sobre" class="linksCabecalho">
+                            Sobre
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contato" class="linksCabecalho">
+                            Contato
+                        </a>
+                    </li>
                     <li>
                         <a asp-controller="inicio" asp-action="login" class="linksCabecalho">
                             Entrar

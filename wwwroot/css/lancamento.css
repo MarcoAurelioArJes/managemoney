@@ -8,10 +8,22 @@
     margin: 0 auto;
 }
 
+.containerListaLancamentos
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .titulo {
     text-align: center;
     color: #006400;
 }
+
+.botaoCriarNovo 
+{
+    background-color: #3caf3c;
+}
+
 
 .listaDeLancamentos {
     list-style: none;
@@ -35,7 +47,7 @@
 
 .botao {
     display: flex;
-    width: 100px;
+    width: 8.125rem;
     height: 25px;
     border: 1px solid #4bb550;
     border-radius: 5px;

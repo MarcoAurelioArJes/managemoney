@@ -10,7 +10,7 @@
            
             <div>
                 <label asp-for="@Model.DataLancamento" id="labelData" for="data">Data:</label>
-                <input asp-for="@Model.DataLancamento" type="date" id="data" name="data">
+                <input asp-for="@Model.DataLancamento" value="@DateTime.Now.ToString("dd/MM/yyyy")" type="date" id="data">
                 <span asp-validation-for="@Model.DataLancamento" class="danger"></span>
             </div>
 
@@ -21,7 +21,7 @@
             </div>
 
             <label id="labelTipo" for="tipo">Tipo de lançamento:</label>
-            <select id="tipo" name="tipo" asp-for="@Model.TipoDeLancamento">
+            <select id="tipo" asp-for="@Model.TipoDeLancamento">
                 <option value="">Selecione uma opção</option>
                 <option value="0">Receita</option>
                 <option value="1">Despesa</option>

@@ -47,6 +47,11 @@ namespace managemoney.Controllers
                 {
                     return LocalRedirect("/lancamento/lancamentos");
                 }
+                else
+                {
+                    ModelState.AddModelError("loginInvalido", "Falha ao fazer login!!! Nome de usuário ou senha inválidos");
+                    return View(ConstantesDasViews.ViewLoginUsuario, usuario);
+                }
             }
 
             return View(ConstantesDasViews.ViewLoginUsuario);

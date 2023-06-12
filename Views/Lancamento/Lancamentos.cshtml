@@ -2,7 +2,12 @@
 
 <main class="mainListaLancamentos">
     <section class="conteudoPrincipalListagem">
-        <h2 class="titulo">Lista de Lançamentos</h2>
+        <h2 class="titulo">Lançamentos</h2>
+        <div class="containerListaLancamentos">
+            <a class="botao botaoCriarNovo" asp-controller="lancamento" asp-action="cadastrarLancamento">
+                Novo lançamento
+            </a>
+        </div>
         <ul class="listaDeLancamentos">
             @foreach (var lancamento in Model)
             {
@@ -12,7 +17,7 @@
                             Valor: @lancamento.Valor
                         </p>
                         <p>
-                            Data: @lancamento.DataLancamento
+                            Data: @lancamento.DataLancamento.ToString("dd/MM/yyyy")
                         </p>
                         <p>
                             Tipo de lançamento: @lancamento.TipoDeLancamento

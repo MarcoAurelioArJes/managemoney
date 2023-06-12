@@ -37,8 +37,8 @@ namespace managemoney.Controllers
             return View(_mapper.Map<List<LancamentosViewModel>>(lancamentos));
         }
 
-        [HttpGet("cadastroLancamento")]
-        public IActionResult CadastroLancamento()
+        [HttpGet("cadastrarLancamento")]
+        public IActionResult CadastrarLancamento()
         {
 
             return View(ObterCadastroLancamento());
@@ -53,12 +53,12 @@ namespace managemoney.Controllers
             try
             {
                 _lancamentoRepository.Criar(_mapper.Map<LancamentoModel>(lancamento));
-                return View(ConstantesDasViews.ViewCadastroLancamento, model);
+                return View(ConstantesDasViews.ViewCadastrarLancamento, model);
             } 
             catch (Exception ex) 
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(ConstantesDasViews.ViewCadastroLancamento, model);
+                return View(ConstantesDasViews.ViewCadastrarLancamento, model);
             }
         }
 
@@ -73,7 +73,7 @@ namespace managemoney.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(ConstantesDasViews.ViewCadastroLancamento);
+                return View(ConstantesDasViews.ViewCadastrarLancamento);
             }
         }
 

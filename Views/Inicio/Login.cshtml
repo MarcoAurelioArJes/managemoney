@@ -28,11 +28,11 @@
                     <input asp-for="@Model.Senha" type="password" id="inputSenhaEntrar">
                     <span asp-validation-for="@Model.Senha" class="danger"></span>
                 </div>
+                @Html.ValidationSummary("loginInvalido")
             <div id="lembrarSenha">
                 <input asp-for="@Model.LembrarSenha" type="checkbox" id="inputLembrarSenha">
                 <label asp-for="@Model.LembrarSenha" for="inputLembrarSenha"> Lembrar senha? </label>     
             </div>
-
             <div id="loginButtonDiv">
                 <button type="submit" id="loginButton"> Entrar </button>
             </div>
