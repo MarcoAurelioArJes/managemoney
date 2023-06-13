@@ -27,6 +27,8 @@ namespace managemoney.Repositorios
 
         public void Atualizar(int id, CategoriaModel categoriaNovo)
         {
+            VerificarSeCategoriaExiste(categoriaNovo);
+
             var categoria = ObterPorId(id);
 
             categoria.Nome = categoriaNovo.Nome;
@@ -65,7 +67,8 @@ namespace managemoney.Repositorios
         {
             var categoriaDb = _dbSet
                 .Where(c => c.UsuarioID == _contextoDoUsuario.ObterIdDoUsuarioAtual()
-                        && c.Nome.ToLower() == categoria.Nome.ToLower());
+                        && c.Nome.ToLower() == categoria.Nome.ToLower()
+                        && c.Id != categoria.Id);
             
             if (categoriaDb.Any())
                 throw new ArgumentException("Categoria já cadastrada");

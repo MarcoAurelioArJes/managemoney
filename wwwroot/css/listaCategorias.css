@@ -43,6 +43,7 @@
     align-items: center;
     padding: 0 1rem;
     justify-content: space-between;
+    margin-bottom: .9375rem;
 }
 
 .botaoListaCategoriasPequeno {

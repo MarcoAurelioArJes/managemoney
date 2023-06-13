@@ -40,6 +40,7 @@ namespace managemoney.Controllers
             {
                 _categoriaRepository.Criar(_mapper.Map<CategoriaModel>(categoria));
                 this.MostrarMensagem("Categoria cadastrada com sucesso!!!");
+                ModelState.Clear();
                 return View();
             }
             catch (ArgumentException ex)
@@ -103,11 +104,11 @@ namespace managemoney.Controllers
             try
             {
                 _categoriaRepository.Remover(id);
-                return View(ConstantesDasViews.ViewCategorias);
+                return View(ConstantesDasViews.ViewCategorias, _mapper.Map<List<CategoriasViewModel>>(_categoriaRepository.ObterTodos()));
             } 
             catch (Exception)
             {
-                return View(ConstantesDasViews.ViewCategorias);
+                return View(ConstantesDasViews.ViewCategorias, _mapper.Map<List<CategoriasViewModel>>(_categoriaRepository.ObterTodos()));
             }
         }
     }
