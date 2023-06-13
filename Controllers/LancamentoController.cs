@@ -67,12 +67,19 @@ namespace managemoney.Controllers
             var model = ObterLancamentoComCategorias();
             try
             {
-                VerificaSeCategoriaFoiSelecionada(lancamento);
-                _lancamentoRepository.Criar(_mapper.Map<LancamentoModel>(lancamento));
-                this.MostrarMensagem("Lançamento cadastrado com sucesso");
-                ModelState.Clear();
-                return View(ConstantesDasViews.ViewCadastrarLancamento, model);
-            } 
+                if (ModelState.IsValid)
+                {
+                    _lancamentoRepository.Criar(_mapper.Map<LancamentoModel>(lancamento));
+                    this.MostrarMensagem("Lançamento cadastrado com sucesso");
+                    ModelState.Clear();
+                    return View(ConstantesDasViews.ViewCadastrarLancamento, model);
+                }
+                else
+                {
+                    this.MostrarMensagem("Verifique se os campos obrigatórios estão preenchidos.", true);
+                    return View(ConstantesDasViews.ViewCadastrarLancamento, model);
+                }
+            }
             catch (Exception) 
             {
                 this.MostrarMensagem("Erro ao cadastrar lançamento! Tente novamente.", true);
@@ -101,11 +108,18 @@ namespace managemoney.Controllers
         {
             try
             {
-                VerificaSeCategoriaFoiSelecionada(novoLancamento);
                 _lancamentoRepository.Atualizar(id, _mapper.Map<LancamentoModel>(novoLancamento));
                 var lancamento = _mapper.Map<CadastroLancamentoViewModel>(_lancamentoRepository.ObterPorId(id));
-                this.MostrarMensagem("Lançamento atualizado com sucesso");
-                return View(ConstantesDasViews.ViewCadastrarLancamento, ObterLancamentoComCategorias(lancamento));
+
+                if (ModelState.IsValid)
+                {
+                    this.MostrarMensagem("Lançamento atualizado com sucesso");
+                    return View(ConstantesDasViews.ViewCadastrarLancamento, ObterLancamentoComCategorias(lancamento));
+                }
+                else
+                {
+                    return View(ConstantesDasViews.ViewCadastrarLancamento, ObterLancamentoComCategorias(lancamento));
+                }
             }
             catch (Exception ex)
             {
@@ -144,12 +158,6 @@ namespace managemoney.Controllers
             }
 
             return viewCadLancamento;
-        }
-
-        public void VerificaSeCategoriaFoiSelecionada(CadastroLancamentoViewModel lancamento)
-        {
-            if (lancamento.CategoriaID == 0)
-                throw new ArgumentException("Por favor selecione uma categoria");
         }
     }
 }

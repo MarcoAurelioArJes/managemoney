@@ -4,7 +4,6 @@
 }
 
 <div id="loginConteudo">
-        
     <!-- Formulário -->
     <section class="card">
             
@@ -19,9 +18,9 @@
         <!-- Campos formulário -->
         <form asp-controller="usuario" asp-action="login" id="loginForm">
             <div class="campoLoginForm">
-                <label asp-for="@Model.Nome" style="margin-left: 0.2rem;">Nome</label>
-                <input type="text" id="inputNomeEntrar" asp-for="@Model.Nome" placeholder="JoaoAntonio321">
-                <span asp-validation-for="@Model.Nome" class="danger"></span>
+                <label asp-for="@Model.NomeUsuario" style="margin-left: 0.2rem;">Nome</label>
+                <input type="text" id="inputNomeEntrar" asp-for="@Model.NomeUsuario" placeholder="JoaoAntonio321">
+                <span asp-validation-for="@Model.NomeUsuario" class="danger"></span>
             </div>
                 <div class="campoLoginForm">
                     <section id="loginSettings">
@@ -31,11 +30,11 @@
                     <input asp-for="@Model.Senha" type="password" id="inputSenhaEntrar">
                     <span asp-validation-for="@Model.Senha" class="danger"></span>
                 </div>
-                @Html.ValidationSummary("loginInvalido")
             <div id="lembrarSenha">
                 <input asp-for="@Model.LembrarSenha" type="checkbox" id="inputLembrarSenha">
                 <label asp-for="@Model.LembrarSenha" for="inputLembrarSenha"> Lembrar senha? </label>     
             </div>
+            <partial name="_MensagemPartial"/>
             <div id="loginButtonDiv">
                 <button type="submit" id="loginButton"> Entrar </button>
             </div>

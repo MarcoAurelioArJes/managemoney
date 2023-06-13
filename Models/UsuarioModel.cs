@@ -10,6 +10,8 @@ namespace managemoney.Models
         : base() { }
 
         [Required, MaxLength(11)]
+        public string Nome { get; set; }
+        [Required, MaxLength(11)]
         public string Cpf { get; set; }
         [Required, DataType(DataType.PhoneNumber)]
         public string Telefone { get; set; }

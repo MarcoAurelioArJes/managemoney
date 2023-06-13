@@ -4,7 +4,7 @@ using managemoney.Models;
 using managemoney.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using managemoney.Models.ViewModels.Usuario;
-using managemoney.Repositorios.DTOs.UsuarioDTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace managemoney.Repositorios
 {
@@ -21,16 +21,35 @@ namespace managemoney.Repositorios
             _usermanager = userManager;
         }
 
-        public Task Atualizar(int id, AtualizarUsuarioDTO usuarioDTO)
+        public Task Atualizar(int id, CadastroUsuarioViewModel usuario)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IdentityResult> Cadastrar(CadastroUsuarioViewModel usuarioDto) 
+        public async Task<IdentityResult> Cadastrar(CadastroUsuarioViewModel novoUsuario) 
         {
-            var usuario = _mapper.Map<UsuarioModel>(usuarioDto);
+            ValidarSeJaExisteEmail(novoUsuario);
+            ValidarSeJaExisteNomeDoUsuario(novoUsuario);
+            var usuario = _mapper.Map<UsuarioModel>(novoUsuario);
         
-            return await _usermanager.CreateAsync(usuario, usuarioDto.Senha);
+            return await _usermanager.CreateAsync(usuario, usuario.Senha);
+        }
+
+        public void ValidarSeJaExisteEmail(CadastroUsuarioViewModel usuarioEmail)
+        {
+            var usuario = _mapper.Map<UsuarioModel>(usuarioEmail);
+            var usuarioComEmail = _usermanager.Users.FirstOrDefault(u => u.Email.ToUpper() == usuarioEmail.Email.ToUpper());
+            if (usuarioComEmail != null)
+                throw new ArgumentException("Já existe um usuário com esse email");
+
+        }
+        public void ValidarSeJaExisteNomeDoUsuario(CadastroUsuarioViewModel usuarioEmail)
+        {
+            var usuario = _mapper.Map<UsuarioModel>(usuarioEmail);
+            var usuarioComEmail = _usermanager.Users.FirstOrDefault(u => u.NormalizedUserName == usuarioEmail.NomeUsuario.ToUpper());
+            if (usuarioComEmail != null)
+                throw new ArgumentException("Já existe um usuário com esse nome");
+
         }
     }
 }

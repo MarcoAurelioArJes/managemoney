@@ -13,7 +13,7 @@ namespace managemoney.Models.ViewModels.Usuario
             CreateMap<CadastroUsuarioViewModel, UsuarioModel>()
             .ForMember(
                 model => model.UserName,
-                dto => dto.MapFrom(c => c.Nome)
+                dto => dto.MapFrom(c => c.NomeUsuario)
             );
         }
     }

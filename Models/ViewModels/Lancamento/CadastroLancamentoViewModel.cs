@@ -1,4 +1,5 @@
 using managemoney.Models.Enums;
+using ManageMoney.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,11 +12,11 @@ namespace managemoney.Models.ViewModels.Lancamento
         public int? CategoriaID { get; set; }
         
         [Required(ErrorMessage = "Informe a data do lançamento")]
-        [CustomValidation(typeof(CadastroLancamentoViewModel), "ValidaData")]
+        [CustomValidation(typeof(CustomValidate), "ValidaData")]
         public DateTime? DataLancamento { get; set; }
         
         [Required(ErrorMessage = "Informe o valor do lançamento")]
-        [CustomValidation(typeof(CadastroLancamentoViewModel), "ValidaValor")]
+        [CustomValidation(typeof(CustomValidate), "ValidaValor")]
         public decimal? Valor { get; set; }
 
         [MaxLength(3000, ErrorMessage = "Descrição deve ter no máx. 3000 caracteres")]
@@ -38,20 +39,5 @@ namespace managemoney.Models.ViewModels.Lancamento
                 Text = TipoDeLancamentoEnum.Despesa.ToString()
             },
         };
-
-
-        public static ValidationResult ValidaData(DateTime data, ValidationContext context)
-        {
-            return (data == DateTime.MinValue)
-                ? new ValidationResult("Informe uma data válida!")
-                : ValidationResult.Success;
-        }
-
-        public static ValidationResult ValidaValor(decimal valor, ValidationContext context)
-        {
-            return (valor == decimal.Zero)
-                ? new ValidationResult("Informe um valor maior que zero!")
-                : ValidationResult.Success;
-        }
     }
 }

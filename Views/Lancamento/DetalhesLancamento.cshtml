@@ -4,7 +4,10 @@
 }
 
 <section class="detalhesContainer">
-    <h2 class="tituloDetalhes">Detalhes</h2>
+    <div class="containerTituloDetalhes">
+        <partial name="_BotaoFecharPartial" />
+        <h2 class="tituloDetalhes">Detalhes</h2>
+    </div>
     <div>
         <div class="itemDetalhesContainer">
             <label asp-for="@Model.DataLancamento">Data Lancamento:</label>

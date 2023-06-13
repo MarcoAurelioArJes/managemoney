@@ -9,7 +9,7 @@ namespace managemoney.Models.ViewModels.Usuario
     public class LoginViewModel
     {
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório.")]
-        public string Nome { get; set; }
+        public string NomeUsuario { get; set; }
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório."), DataType(DataType.Password)]
         public string Senha { get; set; }
         public bool LembrarSenha { get; set; }

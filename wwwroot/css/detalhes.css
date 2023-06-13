@@ -1,4 +1,9 @@
-﻿.tituloDetalhes {
+﻿.containerTituloDetalhes {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tituloDetalhes {
     text-align: center;
     border-bottom: 2px solid #b6b3b3;
     padding-bottom: 1rem;

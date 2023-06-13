@@ -3,7 +3,6 @@
     ViewData["Title"] = "Cadastro";
 }
 
-<div asp-validation-summary="ModelOnly" class="val-summary text-danger mb-3"></div>
 <div id="cadastroConteudo">
     
     <!-- Formulário -->
@@ -12,10 +11,10 @@
             <div class="cabecalhoCard">
                 <span>Cadastro</span>
                 <span id="cabecalhoCardSubtitulo">Já possui Conta? 
-                    <a href="login.html" style="color: #4bb550;">Entre aqui</a> 
+                    <a asp-controller="inicio" asp-action="login" style="color: #4bb550;">Entre aqui</a> 
                 </span>
             </div>
-
+            <partial name="_MensagemPartial" />
             <!-- Campos Formulário -->
             <form asp-controller="usuario" asp-action="cadastrar" id="cadastroForm" method="post">
                 <div class="campoCadastroForm">
@@ -32,6 +31,11 @@
                     <label asp-for="@Model.DataNascimento" style="margin-left: 0.2rem;"> Data Nascimento </label>
                     <input asp-for="@Model.DataNascimento" type="date" id="inputDataNascimento">
                     <span asp-validation-for="@Model.DataNascimento" class="danger"></span>
+                </div>
+                <div class="campoCadastroForm">
+                    <label asp-for="@Model.NomeUsuario" style="margin-left: 0.2rem;"> Nome Usuario </label>
+                    <input asp-for="@Model.NomeUsuario" type="text" placeholder="Joao123">
+                    <span asp-validation-for="@Model.NomeUsuario" class="danger"></span>
                 </div>
                 <div class="campoCadastroForm">
                     <label asp-for="@Model.Email" style="margin-left: 0.2rem;"> Email </label>
