@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using managemoney.Models.ViewModels.Lancamento;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ManageMoney.Constantes;
+using managemoney.Filters;
+using managemoney.Extensions;
 
 namespace managemoney.Controllers
 {
@@ -31,6 +33,7 @@ namespace managemoney.Controllers
         }
 
         [HttpGet("lancamentos")]
+        [CustomActionFilter(Order = 5)]
         public IActionResult Lancamentos()
         {
             var lancamentos = _lancamentoRepository.ObterTodos();  
@@ -44,20 +47,37 @@ namespace managemoney.Controllers
             return View(ObterCadastroLancamento());
         }
 
-        [HttpPost("cadastrar")]
-        public ActionResult Criar([FromForm] CadastroLancamentoViewModel lancamento)
+        [HttpGet("detalhesLancamento/{id}")]
+        public IActionResult DetalhesLancamento(int id)
         {
-            var model = ObterCadastroLancamento();
-            if (lancamento.CategoriaID == 0)
-                throw new ArgumentException("Por favor selecione uma categoria");
             try
             {
+                var lancamento = _lancamentoRepository.ObterPorId(id);  
+                return View(_mapper.Map<LancamentosViewModel>(lancamento));
+            }
+            catch (Exception)
+            {
+                return View(ConstantesDasViews.ViewLancamentos);
+            }
+        }
+
+        [HttpPost("cadastrar")]
+        public ActionResult Cadastrar([FromForm] CadastroLancamentoViewModel lancamento)
+        {
+            var model = ObterCadastroLancamento();
+            try
+            {
+                if (lancamento.CategoriaID == 0)
+                    throw new ArgumentException("Por favor selecione uma categoria");
+                
                 _lancamentoRepository.Criar(_mapper.Map<LancamentoModel>(lancamento));
+                this.MostrarMensagem("Lançamento cadastrado com sucesso");
+                ModelState.Clear();
                 return View(ConstantesDasViews.ViewCadastrarLancamento, model);
             } 
             catch (Exception ex) 
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                this.MostrarMensagem("Erro ao cadastrar lançamento! Tente novamente.", true);
                 return View(ConstantesDasViews.ViewCadastrarLancamento, model);
             }
         }
@@ -107,6 +127,16 @@ namespace managemoney.Controllers
         public CadastroLancamentoViewModel ObterCadastroLancamento()
         {
             var viewCadLancamento = new CadastroLancamentoViewModel();
+            foreach (var categoria in _categoriaRepository.ObterTodos())
+            {
+                viewCadLancamento.Categorias.Add(new SelectListItem
+                {
+                    Text = categoria.Nome,
+                    Value = categoria.Id.ToString()
+                });
+            }
+            
+
             foreach (var categoria in _categoriaRepository.ObterTodos())
             {
                 viewCadLancamento.Categorias.Add(new SelectListItem

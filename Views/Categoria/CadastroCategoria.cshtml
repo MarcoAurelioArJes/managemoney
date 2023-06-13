@@ -1,7 +1,9 @@
-﻿<section id="cadastroCategoria">
+﻿@model CriarCategoriaViewModel
+
+<section id="cadastroCategoria">
     <div id="cadastroCategoria">
 
-     <form>
+     <form asp-controller="categoria" asp-action="criarCategoria" method="post">
 		    <div>
 			    <!-- Cabecalho Categoria -->
                 <div id="cabecalhoCategoria">
@@ -17,10 +19,11 @@
                 </div>
 		    </div>
 
-          <div class="campoCadastroCategoria"
+          <div class="campoCadastroCategoria">
             <label id="labelCategoria" for="Categoria">Categoria:</label>
-          <input type="text" id="inputNome" placeholder="Nome da categoria" required>    
-   
+            <input type="text" id="inputNome" asp-for="@Model.Nome" placeholder="Nome da categoria" required>    
+          </div>
+
           <div class="divButtonCategoria">
              <button class="ButtonCategoria"> Salvar </button>
           </div>

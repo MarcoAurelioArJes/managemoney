@@ -5,6 +5,7 @@ using managemoney.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using managemoney.Models.ViewModels.Lancamento;
+using managemoney.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +34,11 @@ builder.Services.AddScoped<CadastroLancamentoViewModel>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
-builder.Services.AddMvc();
+builder.Services.AddMvc(opts =>
+{
+    opts.Filters.Add(new CustomActionFilter());
+    opts.Filters.Add(typeof(CustomActionFilter));  
+});
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

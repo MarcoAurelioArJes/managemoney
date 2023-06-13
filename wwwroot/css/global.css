@@ -1,8 +1,11 @@
-﻿body, h2, p 
+﻿:root{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body, h2, p 
 {
     margin: 0;
     padding: 0;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     cursor:default;
 }
 
@@ -40,4 +43,22 @@
 .validation-summary-errors ul {
     opacity: 1;
     list-style: none;
+}
+
+.erro {
+    background: #feb3b3;
+    border: 1px solid red;
+}
+
+.sucesso {
+    background: #d8f0da;
+    border: 1px solid #4bb550;
+}
+
+.sucesso, .erro
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.125rem;
 }

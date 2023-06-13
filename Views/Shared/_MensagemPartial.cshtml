@@ -1,0 +1,16 @@
+@if (TempData.ContainsKey("mensagem"))
+{
+    var mensagem = MensagemViewModel.Desserializar(TempData["mensagem"].ToString());
+    @if (mensagem.Tipo == TipoMensagem.Erro)
+    {
+        <div class="erro">
+            @Html.Raw(mensagem.Texto)
+        </div>
+    }
+    else
+    {
+        <div class="sucesso">
+            @Html.Raw(mensagem.Texto)
+        </div>
+    }
+}

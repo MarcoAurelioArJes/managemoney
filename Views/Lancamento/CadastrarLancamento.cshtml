@@ -5,15 +5,15 @@
     ViewData["Title"] = "Criar Lancamento";
 }
 
-<main class="mainListaLancamentos">
-    @Html.ValidationSummary()
+<main class="mainCadastroLancamentos">
+    <partial name="_MensagemPartial" />
     <section>
         <form asp-controller="lancamento" asp-action="cadastrar" method="post">
             <h2 class="titulo">Cadastro de Lançamentos</h2>
            
             <div>
                 <label asp-for="@Model.DataLancamento" id="labelData" for="data">Data:</label>
-                <input asp-for="@Model.DataLancamento" value="@DateTime.Now.ToString("dd/MM/yyyy")" type="date" id="data">
+                <input asp-for="@Model.DataLancamento" type="date" id="data">
                 <span asp-validation-for="@Model.DataLancamento" class="danger"></span>
             </div>
 
@@ -23,21 +23,26 @@
                 <span asp-validation-for="@Model.Valor" class="danger"></span>
             </div>
 
-            <label id="labelTipo" for="tipo">Tipo de lançamento:</label>
-            <select id="tipo" asp-for="@Model.TipoDeLancamento">
-                <option value="">Selecione uma opção</option>
-                <option value="0">Receita</option>
-                <option value="1">Despesa</option>
-            </select>
-            
-            <label>Categorias:</label>
-            <select asp-for="@Model.CategoriaID" asp-items="@Model.Categorias" >
-                <option selected value="">Selecione uma opção</option>
-            </select>
+            <div>
+                <label id="labelTipo" for="tipo">Tipo de lançamento:</label>
+                <select id="tipo" asp-for="@Model.TipoDeLancamento" asp-items="@Model.TiposDeLancamentos">
+                    <option selected value="">Selecione uma opção</option>
+                </select>
+                <span asp-validation-for="@Model.TipoDeLancamento" class="danger"></span>
+            </div>
             
             <div>
-                <label id="labelRecorrencia" for="recorrencia">Descricao:</label>
-                <input id="" cols="30" rows="10" asp-for="@Model.Descricao" type="text">
+                <label>Categorias:</label>
+                <select asp-for="@Model.CategoriaID" asp-items="@Model.Categorias">
+                    <option selected value="">Selecione uma opção</option>
+                </select>
+                <span asp-validation-for="@Model.CategoriaID" class="danger"></span>
+            </div>
+            
+            <div>
+                <label asp-for="@Model.Descricao" for="recorrencia">Descricao:</label>
+                <input cols="30" rows="10" asp-for="@Model.Descricao" type="text" maxlength="3000">
+                <span asp-validation-for="@Model.Descricao" class="danger"></span>
             </div>
 
             <input type="submit" value="Salvar" id="botaoSalvar" onclick="converteData();">
@@ -47,7 +52,8 @@
 
 @section Scripts {
     <script type="text/javascript">
-        window.addEventListener("load", function (event) {
+    /*
+            window.addEventListener("load", function (event) {
             let elemento = $("#inputValor").val();
             elemento.toLocaleString("pt-BR",
                 { style: "currency", currency: "BRL" });
@@ -59,6 +65,6 @@
             let data = new Date();
             inputData.value = data.getDay() + "/" + data.getMonth() + "/" + data.getFullYear();
             console.log(inputData.value)
-        }
+        }*/
     </script>
 }

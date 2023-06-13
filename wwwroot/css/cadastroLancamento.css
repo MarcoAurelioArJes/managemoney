@@ -1,97 +1,98 @@
 #cadlancamento {
     display: flex;
     justify-content: center;
-  }
+}
 
-  .titulo {
-    text-align: center;
-    margin: 10px 0 30px 0;
-    color: #0CA64E;
-    font-size: 18px;
-    border-bottom: 1px solid lightgray;
-    padding-bottom: 20px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
+.mainCadastroLancamentos {
+  padding: 30px 50px;
+  margin-top: 4rem;
+}
 
-  .div {
-    margin: 0 auto;
-  }
+.titulo {
+  text-align: center;
+  margin: 10px 0 30px 0;
+  color: #0CA64E;
+  font-size: 18px;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 
-  label {
-    display: block;
-    padding-top: 10px;
-  }
+.div {
+  margin: 0 auto;
+}
 
-  input[required],
-  select[required] {
-    border: 1px solid #3CB371;
-    border-radius: 5px;
-  }
+label {
+  display: block;
+  padding-top: 10px;
+}
 
-  input[type="date"] {
-    border: 1px solid #3CB371;
-    padding-top: 20px;
-    padding-bottom: 0px;
-    border-radius: 5px;
-  }
+input[required],
+select[required] {
+  border: 1px solid #3CB371;
+  border-radius: 5px;
+}
 
-  select option:checked {
-    background-color: #3CB371;
-    color: #fff;
-  }
+input[type="date"] {
+  border: 1px solid #3CB371;
+  border-radius: 5px;
+}
 
-  input {
-    outline: none;
-    border-radius: 5px;
-  }
+select option:checked {
+  background-color: #3CB371;
+  color: #fff;
+}
 
-  input[type="submit"] {
-    background-color: #3CB371;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    padding-top: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+input {
+  outline: none;
+  border-radius: 5px;
+  padding: 10px;
+}
 
-  form {
-    width: 500px;
-    margin: 50px auto;
-    background-color: #f1f1f1;
-    height: auto;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 0px #888;
-    border-bottom: 1px solid lightgray;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
+input[type="submit"] {
+  background-color: #3CB371;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-  input[type="text"] {
-    border: 1px solid #3CB371;
-    padding: 10px;
-    padding-top: 20px;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+form {
+  width: 500px;
+  margin: 30px auto;
+  background-color: #f1f1f1;
+  height: auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px #888;
+  border-bottom: 1px solid lightgray;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 
-  input[type="checkbox"] {
-    margin-right: 10px;
-    border-radius: 5px;
-  }
+input[type="text"] {
+  border: 1px solid #3CB371;
+  padding-left: 10px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  #labelNotificacao,
-  #labelOculto {
-    display: inline;
-    color: #333;
-  }
+input[type="checkbox"] {
+  margin-right: 10px;
+  border-radius: 5px;
+}
 
-  .contentCheckBox {
-    margin: 0.5rem 0;
-  }
+#labelNotificacao,
+#labelOculto {
+  display: inline;
+  color: #333;
+}
 
-  #botaoSalvar {
-    display: block;
-    text-align: center;
-  }
+.contentCheckBox {
+  margin: 0.5rem 0;
+}
+
+#botaoSalvar {
+  display: block;
+  text-align: center;
+}

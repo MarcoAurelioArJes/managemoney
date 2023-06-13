@@ -5,11 +5,11 @@ namespace managemoney.Models.ViewModels.Lancamento
 {
     public class LancamentosViewModel
     {
-        [Required]
+        public int Id { get; set; }
         public decimal Valor { get; set; }
-        [Required]
         public DateTime DataLancamento { get; set; }
-        [Required]
         public TipoDeLancamentoEnum TipoDeLancamento { get; set; }
+        public string Descricao { get; set; }
+        public CategoriaModel Categoria { get; set; }
     }
 }

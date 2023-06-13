@@ -14,7 +14,7 @@
         <ul class="listaDeLancamentos">
             @foreach (var lancamento in Model)
             {
-                <li class="itemListaDeLancamentos">
+                <li id="@lancamento.Id" class="itemListaDeLancamentos">
                     <div>
                         <p>
                             Valor: @lancamento.Valor
@@ -27,10 +27,7 @@
                         </p>
                     </div>
                     <div class="containerDeBotoes">
-                        <a href="#" class="botao btnVisualizar">
-                            Visualizar
-                        </a>
-                        <a href="#" class="botao btnEditar">
+                        <a asp-controller="lancamento" asp-action="detalhesLancamento/{@lancamento.Id}" class="botao btnVisualizar">
                             Editar
                         </a>
                     </div>

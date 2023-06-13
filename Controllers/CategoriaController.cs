@@ -3,7 +3,7 @@ using managemoney.Models;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using managemoney.Repositorios.DTOs.CategoriaDTO;
+using managemoney.Models.ViewModels.Categoria;
 
 namespace managemoney.Controllers
 {
@@ -20,13 +20,14 @@ namespace managemoney.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("criarCategoria")]
         public IActionResult CadastroCategoria()
         {
             return View();
         }
 
-        [HttpPost("criar")]
-        public IActionResult Criar([FromBody] CriarCategoriaDTO categoria)
+        [HttpPost("criarCategoria")]
+        public IActionResult CriarCategoria([FromForm] CriarCategoriaViewModel categoria)
         {
             try
             {
@@ -45,7 +46,7 @@ namespace managemoney.Controllers
         {
             try
             {
-                return Ok(_mapper.Map<List<CategoriasDTO>>(_categoriaRepository.ObterTodos()));
+                return Ok(_mapper.Map<List<CategoriasViewModel>>(_categoriaRepository.ObterTodos()));
             } 
             catch (Exception ex)
             {
