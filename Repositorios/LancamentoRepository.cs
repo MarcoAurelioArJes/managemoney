@@ -48,7 +48,9 @@ namespace managemoney.Repositorios
 
         public LancamentoModel ObterPorId(int id)
         {
-            var lancamento = _dbSet.Where(l => l.Id == id
+            var lancamento = _dbSet
+                                .Include(c => c.Categoria)
+                                .Where(l => l.Id == id
                                 && l.UsuarioID == _contextoDoUsuario.ObterIdDoUsuarioAtual()).FirstOrDefault();
 
             if (lancamento is null)

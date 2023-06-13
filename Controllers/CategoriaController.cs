@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using managemoney.Models.ViewModels.Categoria;
+using managemoney.Extensions;
+using ManageMoney.Constantes;
 
 namespace managemoney.Controllers
 {
-    [Route("[Controller]")]
     [Authorize]
     public class CategoriaController : Controller
     {
@@ -20,8 +21,14 @@ namespace managemoney.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("categorias")]
+        public IActionResult Categorias()
+        {
+            return View(_mapper.Map<List<CategoriasViewModel>>(_categoriaRepository.ObterTodos()));
+        }
+
         [HttpGet("criarCategoria")]
-        public IActionResult CadastroCategoria()
+        public IActionResult CriarCategoria()
         {
             return View();
         }
@@ -32,25 +39,61 @@ namespace managemoney.Controllers
             try
             {
                 _categoriaRepository.Criar(_mapper.Map<CategoriaModel>(categoria));
-                return Ok();
+                this.MostrarMensagem("Categoria cadastrada com sucesso!!!");
+                return View();
+            }
+            catch (ArgumentException ex)
+            {
+                this.MostrarMensagem("Ocorreu um erro ao cadastrar categoria: " + ex.Message, true);
+                return View();
             }
             catch (Exception ex)
             {
-                
-                return BadRequest(ex.Message);
+                this.MostrarMensagem("Ocorreu um erro ao cadastrar categoria", true);
+                return View();
             }
         }
 
-        [HttpGet("obterTodas")]
-        public IActionResult ObterTodas()
+        [HttpGet("atualizar/{id}")]
+        public IActionResult Atualizar(int id)
         {
             try
             {
-                return Ok(_mapper.Map<List<CategoriasViewModel>>(_categoriaRepository.ObterTodos()));
-            } 
+                var categoria = _categoriaRepository.ObterPorId(id);
+                return View(ConstantesDasViews.ViewCriarCategoria, _mapper.Map<CriarCategoriaViewModel>(categoria));
+            }
+            catch (ArgumentException ex)
+            {
+                this.MostrarMensagem("Ocorreu um erro ao cadastrar categoria: " + ex.Message, true);
+                var categoria = _categoriaRepository.ObterPorId(id);
+                return View(ConstantesDasViews.ViewCriarCategoria, _mapper.Map<CriarCategoriaViewModel>(categoria));
+            }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                this.MostrarMensagem("Ocorreu um erro ao cadastrar categoria", true);
+                var categoria = _categoriaRepository.ObterPorId(id);
+                return View(ConstantesDasViews.ViewCriarCategoria, _mapper.Map<CriarCategoriaViewModel>(categoria));
+            }
+        }
+
+        [HttpPost("atualizar/{id}")]
+        public IActionResult Atualizar(int id, [FromForm] CriarCategoriaViewModel categoriaView)
+        {
+            try
+            {
+                _categoriaRepository.Atualizar(id, _mapper.Map<CategoriaModel>(categoriaView));
+                this.MostrarMensagem("Categoria atualizada com sucesso!!!");
+                return View(ConstantesDasViews.ViewCriarCategoria, _mapper.Map<CriarCategoriaViewModel>(_categoriaRepository.ObterPorId(id)));
+            }
+            catch (ArgumentException ex)
+            {
+                this.MostrarMensagem("Ocorreu um erro ao atualizar categoria: " + ex.Message, true);
+                return View(ConstantesDasViews.ViewCriarCategoria, categoriaView);
+            }
+            catch (Exception ex)
+            {
+                this.MostrarMensagem("Ocorreu um erro ao atualizar categoria", true);
+                return View(ConstantesDasViews.ViewCriarCategoria, categoriaView);
             }
         }
 
@@ -60,11 +103,11 @@ namespace managemoney.Controllers
             try
             {
                 _categoriaRepository.Remover(id);
-                return Ok();
+                return View(ConstantesDasViews.ViewCategorias);
             } 
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest(ex.Message);
+                return View(ConstantesDasViews.ViewCategorias);
             }
         }
     }

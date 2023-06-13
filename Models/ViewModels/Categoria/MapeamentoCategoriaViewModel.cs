@@ -9,6 +9,8 @@ namespace managemoney.Models.ViewModels.Categoria
         {
             CreateMap<CriarCategoriaViewModel, CategoriaModel>();
             CreateMap<CategoriaModel, CategoriasViewModel>();
+            CreateMap<CategoriaModel, CriarCategoriaViewModel>();
+            
         }
     }
 }

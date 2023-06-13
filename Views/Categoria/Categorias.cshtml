@@ -1,0 +1,33 @@
+﻿@model List<CategoriasViewModel>
+@{
+    ViewData["Title"] = "Lista Categorias";
+}
+
+<main class="mainListaCategorias">
+    <section>
+        <h2 class="tituloListaCategorias">Lista de Categorias</h2>
+        <div class="containerListaCategorias">
+            <a class="botaoListaCategorias botaoCriarNovoCategorias" asp-controller="categoria" asp-action="criarCategoria">
+                Nova categoria
+            </a>
+        </div>
+        <ul class="listaCategorias">
+            @foreach(var categoria in Model)
+            {
+                <li class="itemListaCategorias">
+                    <div>
+                        <span for="">@categoria.Nome</span>
+                    </div>
+                    <div class="containerBotoesListaCategorias">
+                        <a asp-controller="categoria" asp-action="atualizar" asp-route-id="@categoria.Id" class="botaoListaCategoriasPequeno editar" type="submit">
+                            Editar
+                        </a>
+                        <a asp-controller="categoria" asp-action="remover" asp-route-id="@categoria.Id" class="botaoListaCategoriasPequeno excluir" type="submit">
+                            Excluir
+                        </a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </section>
+</main>

@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations;
 namespace managemoney.Models.ViewModels.Lancamento
 {
     public class CadastroLancamentoViewModel
-    {   
+    {
+        public int? Id { get; set; }
         [Required(ErrorMessage = "Informe a categoria")]
         public int? CategoriaID { get; set; }
         
@@ -23,7 +24,7 @@ namespace managemoney.Models.ViewModels.Lancamento
         [Required(ErrorMessage = "Informe o tipo de lançamento")]
         public TipoDeLancamentoEnum? TipoDeLancamento { get; set; }
 
-        public List<SelectListItem> Categorias { get; set; } = new List<SelectListItem>();
+        public HashSet<SelectListItem> Categorias { get; set; } = new HashSet<SelectListItem>();
         public List<SelectListItem> TiposDeLancamentos => new List<SelectListItem>
         {
             new SelectListItem

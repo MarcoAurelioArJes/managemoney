@@ -1,0 +1,83 @@
+﻿@model CriarCategoriaViewModel
+@{
+    bool alterando = Context.Request.RouteValues.ContainsKey("id");
+    if (alterando)
+    {
+        ViewData["Title"] = "Atualizar Categoria";
+        ViewData["Botao"] = "Atualizar";
+    }
+    else
+    {
+        ViewData["Title"] = "Cadastrar Categoria";
+        ViewData["Botao"] = "Cadastrar";
+    }
+}
+
+<section id="cadastroCategoria">
+    <div>
+        <div>
+            @if(alterando)
+            {
+                <form asp-controller="categoria" asp-action="atualizar" asp-route-id="@Model.Id" method="post">
+                    <div>
+                        <partial name="_MensagemPartial" />
+
+                        <!-- Cabecalho Categoria -->
+                        <div id="cabecalhoCategoria">
+                            <h2>
+                                @ViewData["Title"]
+                            </h2>
+                            <div id="divisor"></div>
+                        </div>
+
+                        <div id="formCategoria">
+
+                            <div class="campoCadastroCategoria">
+                            </div>
+                        </div>
+
+                        <div class="campoCadastroCategoria">
+                            <label id="labelCategoria" for="Categoria">Categoria:</label>
+                            <input type="text" id="inputNome" asp-for="@Model.Nome" placeholder="Nome da categoria">
+                            <span asp-validation-for="@Model.Nome" class="danger"></span>
+                        </div>
+
+                        <div class="divButtonCategoria">
+                            <button class="ButtonCategoria"> @ViewData["Botao"] </button>
+                        </div>
+                </form>
+            }
+            else
+            {
+                <form asp-controller="categoria" asp-action="criarCategoria" method="post">
+                    <div>
+                        <partial name="_MensagemPartial" />
+
+                        <!-- Cabecalho Categoria -->
+                        <div id="cabecalhoCategoria">
+                            <h2>
+                                @ViewData["Title"]
+                            </h2>
+                            <div id="divisor"></div>
+                        </div>
+
+                        <div id="formCategoria">
+
+                            <div class="campoCadastroCategoria">
+                            </div>
+                        </div>
+
+                        <div class="campoCadastroCategoria">
+                            <label id="labelCategoria" for="Categoria">Categoria:</label>
+                            <input type="text" id="inputNome" asp-for="@Model.Nome" placeholder="Nome da categoria">
+                            <span asp-validation-for="@Model.Nome" class="danger"></span>
+                        </div>
+
+                        <div class="divButtonCategoria">
+                            <button class="ButtonCategoria"> @ViewData["Botao"] </button>
+                        </div>
+                </form>
+            }
+        </div>
+    </div>
+</section>

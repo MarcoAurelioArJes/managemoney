@@ -3,58 +3,37 @@
     ViewData["Title"] = "Detalhes Lancamento";
 }
 
-<div class="destaque">
-    <div class="content">
-        <p class="data-lancamento">@Model.DataLancamento.ToShortDateString()</p>
-        <p class="valor">@Model.Valor.ToString("C")</p>
-        <p class="descricao">@Model.Descricao</p>
-        <p class="tipo-lancamento">@Model.TipoDeLancamento</p>
-        <p class="categoria">@Model.Categoria</p>
+<section class="detalhesContainer">
+    <h2 class="tituloDetalhes">Detalhes</h2>
+    <div>
+        <div class="itemDetalhesContainer">
+            <label asp-for="@Model.DataLancamento">Data Lancamento:</label>
+            <span asp-for="@Model.DataLancamento">@Model.DataLancamento</span>
+        </div>
+        <div class="itemDetalhesContainer">
+            <label for="">Valor:</label>
+            <span for="">@Model.Valor.ToString("C")</span>
+        </div>
+        <div class="itemDetalhesContainer">
+            <label for="">Tipo de Lancamento:</label>
+            <span for="">@Model.TipoDeLancamento</span>
+        </div>
+        <div class="itemDetalhesContainer">
+            <label for="">Categoria:</label>
+            <span for="">@Model.Categoria.Nome</span>
+        </div>
+        <div class="itemDetalhesContainerDescricao">
+            <label asp-for="@Model.Descricao">Descricao</label>
+            <textarea disabled name="" id="" cols="30" rows="10" asp-for="@Model.Descricao"></textarea>
+        </div>
     </div>
-</div>
 
-
-<style>
-    .destaque {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: green;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .content {
-        text-align: center;
-    }
-
-    .content p {
-        color: white;
-        margin: 10px 0;
-    }
-
-    .data-lancamento {
-        font-weight: bold;
-        font-size: 24px;
-    }
-
-    .valor {
-        font-size: 32px;
-    }
-
-    .descricao {
-        font-style: italic;
-        font-size: 18px;
-    }
-
-    .tipo-lancamento {
-        text-transform: uppercase;
-        font-size: 18px;
-    }
-
-    .categoria {
-        text-decoration: underline;
-        font-size: 18px;
-    }
-</style>
+    <div class="containerBotoesDetalhes">
+        <a asp-controller="lancamento" asp-action="atualizar" asp-route-id="@Model.Id" class="botaoDetalhesLancamento editar" type="submit">
+            Editar
+        </a>
+        <a asp-controller="lancamento" asp-action="remover" asp-route-id="@Model.Id" class="botaoDetalhesLancamento excluir" type="submit">
+            Excluir
+        </a>
+    </div>
+</section>

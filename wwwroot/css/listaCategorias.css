@@ -1,0 +1,66 @@
+﻿.tituloListaCategorias {
+    text-align: center;
+    color: #0CA64E;
+}
+
+.containerListaCategorias {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.botaoCriarNovoCategorias {
+    background-color: #3caf3c;
+}
+
+.botaoListaCategorias {
+    display: flex;
+    width: 8.125rem;
+    height: 25px;
+    border: 1px solid #4bb550;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #FFF;
+}
+
+.mainListaCategorias {
+    width: 35rem;
+    margin: 5rem auto;
+}
+
+.listaCategorias {
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.itemListaCategorias {
+    display: flex;
+    border: 2px solid #31a162;
+    border-radius: 5px;
+    background-color: #e6f7ee;
+    height: 2rem;
+    align-items: center;
+    padding: 0 1rem;
+    justify-content: space-between;
+}
+
+.botaoListaCategoriasPequeno {
+    margin-left: 0.5rem;
+    padding: .1rem .3rem;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.botaoListaCategoriasPequeno.editar {
+    border: 1px solid #ffa500;
+    background-color: #f5d395;
+}
+
+.botaoListaCategoriasPequeno.excluir {
+    border: 1px solid red;
+    background-color: #ffd4d4;
+}

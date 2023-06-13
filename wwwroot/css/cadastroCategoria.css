@@ -18,10 +18,10 @@
     padding: 10px;
     border-radius: 5px;
     width: 100%;
-    box-sizing: border-box;}
+    box-sizing: border-box;
+}
 
-   #cadastroCategoria form {
-    display: center;
+#cadastroCategoria form {
     width: 500px;
     height: auto;
     margin: 50px;

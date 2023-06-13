@@ -22,9 +22,19 @@
   margin: 0 auto;
 }
 
+.descricaoCadastro {
+    width: 100%;
+    border: 1px solid #3CB371;
+    padding-left: 10px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+}
+
 label {
-  display: block;
-  padding-top: 10px;
+    display: block;
+    padding-top: 10px;
 }
 
 input[required],

@@ -2,7 +2,6 @@ using managemoney.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using managemoney.Models.Interfaces;
-using managemoney.Repositorios.DTOs.LancamentosDTO;
 using Microsoft.AspNetCore.Authorization;
 using managemoney.Models.ViewModels.Lancamento;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -44,7 +43,7 @@ namespace managemoney.Controllers
         public IActionResult CadastrarLancamento()
         {
 
-            return View(ObterCadastroLancamento());
+            return View(ObterLancamentoComCategorias());
         }
 
         [HttpGet("detalhesLancamento/{id}")]
@@ -52,8 +51,9 @@ namespace managemoney.Controllers
         {
             try
             {
-                var lancamento = _lancamentoRepository.ObterPorId(id);  
-                return View(_mapper.Map<LancamentosViewModel>(lancamento));
+                var lancamento = _lancamentoRepository.ObterPorId(id);
+                var lancamentosView = _mapper.Map<LancamentosViewModel>(lancamento);
+                return View(lancamentosView);
             }
             catch (Exception)
             {
@@ -64,31 +64,30 @@ namespace managemoney.Controllers
         [HttpPost("cadastrar")]
         public ActionResult Cadastrar([FromForm] CadastroLancamentoViewModel lancamento)
         {
-            var model = ObterCadastroLancamento();
+            var model = ObterLancamentoComCategorias();
             try
             {
-                if (lancamento.CategoriaID == 0)
-                    throw new ArgumentException("Por favor selecione uma categoria");
-                
+                VerificaSeCategoriaFoiSelecionada(lancamento);
                 _lancamentoRepository.Criar(_mapper.Map<LancamentoModel>(lancamento));
                 this.MostrarMensagem("Lançamento cadastrado com sucesso");
                 ModelState.Clear();
                 return View(ConstantesDasViews.ViewCadastrarLancamento, model);
             } 
-            catch (Exception ex) 
+            catch (Exception) 
             {
                 this.MostrarMensagem("Erro ao cadastrar lançamento! Tente novamente.", true);
                 return View(ConstantesDasViews.ViewCadastrarLancamento, model);
             }
         }
 
-        [HttpPut("atualizar/{id}")]
-        public IActionResult Atualizar(int id, [FromForm] LancamentoDTO novoLancamento)
+        [HttpGet("atualizar/{id}")]
+        public IActionResult Atualizar(int id)
         {
             try
             {
-                _lancamentoRepository.Atualizar(id, _mapper.Map<LancamentoModel>(novoLancamento));
-                return NoContent();
+                var lancamento = _lancamentoRepository.ObterPorId(id);
+                var lancamentoView = _mapper.Map<CadastroLancamentoViewModel>(lancamento);
+                return View(ConstantesDasViews.ViewCadastrarLancamento, ObterLancamentoComCategorias(lancamentoView));
             }
             catch (Exception ex)
             {
@@ -97,56 +96,60 @@ namespace managemoney.Controllers
             }
         }
 
-        [HttpGet("obterPorId/{id}")]
-        public ActionResult ObterPorId(int id)
+        [HttpPost("atualizar/{id}")]
+        public IActionResult Atualizar(int id, [FromForm] CadastroLancamentoViewModel novoLancamento)
         {
             try
             {
-                return Ok(_lancamentoRepository.ObterPorId(id));
+                VerificaSeCategoriaFoiSelecionada(novoLancamento);
+                _lancamentoRepository.Atualizar(id, _mapper.Map<LancamentoModel>(novoLancamento));
+                var lancamento = _mapper.Map<CadastroLancamentoViewModel>(_lancamentoRepository.ObterPorId(id));
+                this.MostrarMensagem("Lançamento atualizado com sucesso");
+                return View(ConstantesDasViews.ViewCadastrarLancamento, ObterLancamentoComCategorias(lancamento));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                this.MostrarMensagem("Ocorreu um erro ao atualizar o lançamento: " + ex.Message, true);
+                return View(ConstantesDasViews.ViewCadastrarLancamento, ObterLancamentoComCategorias(novoLancamento));
             }
         }
 
-        [HttpDelete("remover/{id}")]
+        [HttpGet("remover/{id}")]
         public ActionResult Remover(int id)
         {
             try
             {
                 _lancamentoRepository.Remover(id);
-                return NoContent();
+                return View(ConstantesDasViews.ViewLancamentos, _mapper.Map<List<LancamentosViewModel>>(_lancamentoRepository.ObterTodos()));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest(ex.Message);
+                var lancamento = _lancamentoRepository.ObterPorId(id);
+                var lancamentosView = _mapper.Map<List<LancamentosViewModel>>(lancamento);
+                return View(ConstantesDasViews.ViewDetalhesLancamento, lancamentosView);
             }
         }
 
-        public CadastroLancamentoViewModel ObterCadastroLancamento()
+        public CadastroLancamentoViewModel ObterLancamentoComCategorias(CadastroLancamentoViewModel cadastroLancamentoViewModel = null)
         {
-            var viewCadLancamento = new CadastroLancamentoViewModel();
+            var viewCadLancamento = cadastroLancamentoViewModel ?? new CadastroLancamentoViewModel();
             foreach (var categoria in _categoriaRepository.ObterTodos())
             {
-                viewCadLancamento.Categorias.Add(new SelectListItem
-                {
-                    Text = categoria.Nome,
-                    Value = categoria.Id.ToString()
-                });
-            }
-            
-
-            foreach (var categoria in _categoriaRepository.ObterTodos())
-            {
-                viewCadLancamento.Categorias.Add(new SelectListItem
-                {
-                    Text = categoria.Nome,
-                    Value = categoria.Id.ToString()
-                });
+                if (viewCadLancamento.CategoriaID != categoria.Id)
+                    viewCadLancamento.Categorias.Add(new SelectListItem
+                    {
+                        Text = categoria.Nome,
+                        Value = categoria.Id.ToString()
+                    });
             }
 
             return viewCadLancamento;
+        }
+
+        public void VerificaSeCategoriaFoiSelecionada(CadastroLancamentoViewModel lancamento)
+        {
+            if (lancamento.CategoriaID == 0)
+                throw new ArgumentException("Por favor selecione uma categoria");
         }
     }
 }

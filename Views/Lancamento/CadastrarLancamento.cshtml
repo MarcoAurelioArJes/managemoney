@@ -2,69 +2,109 @@
 
 @model CadastroLancamentoViewModel
 @{
-    ViewData["Title"] = "Criar Lancamento";
+    bool alterando = Context.Request.RouteValues.ContainsKey("id");
+    if (alterando)
+    {
+        ViewData["Title"] = "Atualizar Lançamento";
+        ViewData["Botao"] = "Atualizar";
+    }
+    else
+    {
+        ViewData["Title"] = "Cadastrar Lançamento";
+        ViewData["Botao"] = "Cadastrar";
+    }
 }
 
 <main class="mainCadastroLancamentos">
-    <partial name="_MensagemPartial" />
+    <partial name="_MensagemPartial"/>
     <section>
-        <form asp-controller="lancamento" asp-action="cadastrar" method="post">
-            <h2 class="titulo">Cadastro de Lançamentos</h2>
-           
-            <div>
-                <label asp-for="@Model.DataLancamento" id="labelData" for="data">Data:</label>
-                <input asp-for="@Model.DataLancamento" type="date" id="data">
-                <span asp-validation-for="@Model.DataLancamento" class="danger"></span>
-            </div>
+        @if (alterando)
+        {
+            <form asp-controller="lancamento" asp-action="atualizar" asp-route-id="@Model.Id" method="post">
 
-            <div>
-                <label asp-for="@Model.Valor" id="labelData">Valor:</label>
-                <input asp-for="@Model.Valor" id="inputValor" type="text" name="valor">
-                <span asp-validation-for="@Model.Valor" class="danger"></span>
-            </div>
+                <h2 class="titulo">@ViewData["Title"]</h2>
+                <input type="hidden" asp-for="@Model.Id">
+                <div>
+                    <label asp-for="@Model.DataLancamento" id="labelData" for="data">Data:</label>
+                    <input asp-for="@Model.DataLancamento" type="date" id="data">
+                    <span asp-validation-for="@Model.DataLancamento" class="danger"></span>
+                </div>
 
-            <div>
-                <label id="labelTipo" for="tipo">Tipo de lançamento:</label>
-                <select id="tipo" asp-for="@Model.TipoDeLancamento" asp-items="@Model.TiposDeLancamentos">
-                    <option selected value="">Selecione uma opção</option>
-                </select>
-                <span asp-validation-for="@Model.TipoDeLancamento" class="danger"></span>
-            </div>
-            
-            <div>
-                <label>Categorias:</label>
-                <select asp-for="@Model.CategoriaID" asp-items="@Model.Categorias">
-                    <option selected value="">Selecione uma opção</option>
-                </select>
-                <span asp-validation-for="@Model.CategoriaID" class="danger"></span>
-            </div>
-            
-            <div>
-                <label asp-for="@Model.Descricao" for="recorrencia">Descricao:</label>
-                <input cols="30" rows="10" asp-for="@Model.Descricao" type="text" maxlength="3000">
-                <span asp-validation-for="@Model.Descricao" class="danger"></span>
-            </div>
+                <div>
+                    <label asp-for="@Model.Valor" id="labelData">Valor:</label>
+                    <input asp-for="@Model.Valor" id="inputValor" type="text" name="valor">
+                    <span asp-validation-for="@Model.Valor" class="danger"></span>
+                </div>
 
-            <input type="submit" value="Salvar" id="botaoSalvar" onclick="converteData();">
+                <div>
+                    <label id="labelTipo" for="tipo">Tipo de lançamento:</label>
+                    <select id="tipo" asp-for="@Model.TipoDeLancamento" asp-items="@Model.TiposDeLancamentos">
+                        <option selected value="">Selecione uma opção</option>
+                    </select>
+                    <span asp-validation-for="@Model.TipoDeLancamento" class="danger"></span>
+                </div>
+
+                <div>
+                    <label>Categorias:</label>
+                    <select asp-for="@Model.CategoriaID" asp-items="@Model.Categorias">
+                        <option selected value="">Selecione uma opção</option>
+                    </select>
+                    <span asp-validation-for="@Model.CategoriaID" class="danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="@Model.Descricao" for="recorrencia">Descricao:</label>
+                    <textarea class="descricaoCadastro" cols="30" rows="10" asp-for="@Model.Descricao" type="text" maxlength="3000">
+                    </textarea>
+                    <span asp-validation-for="@Model.Descricao" class="danger"></span>
+                </div>
+
+                <input type="submit" value="@ViewData["Botao"]" id="botaoSalvar">
             </form>
+        }            
+        else
+        {
+            <form asp-controller="lancamento" asp-action="cadastrar" method="post">
+
+                <h2 class="titulo">@ViewData["Title"]</h2>
+
+                <div>
+                    <label asp-for="@Model.DataLancamento" id="labelData" for="data">Data:</label>
+                    <input asp-for="@Model.DataLancamento" type="date" id="data">
+                    <span asp-validation-for="@Model.DataLancamento" class="danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="@Model.Valor" id="labelData">Valor:</label>
+                    <input asp-for="@Model.Valor" id="inputValor" type="text" name="valor">
+                    <span asp-validation-for="@Model.Valor" class="danger"></span>
+                </div>
+
+                <div>
+                    <label id="labelTipo" for="tipo">Tipo de lançamento:</label>
+                    <select id="tipo" asp-for="@Model.TipoDeLancamento" asp-items="@Model.TiposDeLancamentos">
+                        <option selected value="">Selecione uma opção</option>
+                    </select>
+                    <span asp-validation-for="@Model.TipoDeLancamento" class="danger"></span>
+                </div>
+
+                <div>
+                    <label>Categorias:</label>
+                    <select asp-for="@Model.CategoriaID" asp-items="@Model.Categorias">
+                        <option selected value="">Selecione uma opção</option>
+                    </select>
+                    <span asp-validation-for="@Model.CategoriaID" class="danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="@Model.Descricao" for="recorrencia">Descricao:</label>
+                    <textarea class="descricaoCadastro" cols="30" rows="10" asp-for="@Model.Descricao" type="text" maxlength="3000">
+                    </textarea>
+                    <span asp-validation-for="@Model.Descricao" class="danger"></span>
+                </div>
+
+                <input type="submit" value="@ViewData["Botao"]" id="botaoSalvar">
+            </form>
+        }
     </section>
 </main>
-
-@section Scripts {
-    <script type="text/javascript">
-    /*
-            window.addEventListener("load", function (event) {
-            let elemento = $("#inputValor").val();
-            elemento.toLocaleString("pt-BR",
-                { style: "currency", currency: "BRL" });
-        });
-
-        function converteData()
-        {
-            let inputData = $("#data").val();
-            let data = new Date();
-            inputData.value = data.getDay() + "/" + data.getMonth() + "/" + data.getFullYear();
-            console.log(inputData.value)
-        }*/
-    </script>
-}
