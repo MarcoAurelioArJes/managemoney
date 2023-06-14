@@ -25,16 +25,15 @@
         font-weight:900;
     }
 
-    #detalhe_titulo
-    {
-        display: inline-block;
-        width: 13.5rem;
-        height: 2.43rem;
-        background-image: url("../img/tela_Inicial/detalhe_titulo.png"); 
-        background-repeat: no-repeat;
-        background-size: 100%;
-        color: white;
-    }
+#detalhe_titulo {
+    display: inline-block;
+    width: 15rem;
+    height: 2.43rem;
+    background-image: url("../img/tela_Inicial/detalhe_titulo.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: white;
+}
 
     #textoSubtitulo
     {

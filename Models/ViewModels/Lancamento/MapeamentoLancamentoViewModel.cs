@@ -11,7 +11,9 @@ namespace managemoney.Models.ViewModels.Lancamento
         public MapeamentoLancamentoViewModel()
         {
             CreateMap<LancamentoModel, LancamentosViewModel>();
+            CreateMap<LancamentosViewModel, LancamentoModel>();
             CreateMap<CadastroLancamentoViewModel, LancamentoModel>();
+            CreateMap<LancamentoModel, DetalhesViewModel>();
             CreateMap<LancamentoModel, CadastroLancamentoViewModel>()
                     .ForMember(
                         dest => dest.Categorias,

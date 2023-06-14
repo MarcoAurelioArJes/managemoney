@@ -35,14 +35,14 @@ namespace managemoney.Controllers
         [CustomActionFilter(Order = 5)]
         public IActionResult Lancamentos()
         {
-            var lancamentos = _lancamentoRepository.ObterTodos();  
-            return View(_mapper.Map<List<LancamentosViewModel>>(lancamentos));
+            var lancamentos = _lancamentoRepository.ObterTodos();
+            var lancamentoView = new LancamentosViewModel(lancamentos);
+            return View(lancamentoView);
         }
 
         [HttpGet("cadastrarLancamento")]
         public IActionResult CadastrarLancamento()
         {
-
             return View(ObterLancamentoComCategorias());
         }
 
@@ -52,7 +52,7 @@ namespace managemoney.Controllers
             try
             {
                 var lancamento = _lancamentoRepository.ObterPorId(id);
-                var lancamentosView = _mapper.Map<LancamentosViewModel>(lancamento);
+                var lancamentosView = _mapper.Map<DetalhesViewModel>(lancamento);
                 return View(lancamentosView);
             }
             catch (Exception)
@@ -61,8 +61,8 @@ namespace managemoney.Controllers
             }
         }
 
-        [HttpPost("cadastrar")]
-        public ActionResult Cadastrar([FromForm] CadastroLancamentoViewModel lancamento)
+        [HttpPost("cadastrarLancamento")]
+        public ActionResult CadastrarLancamento([FromForm] CadastroLancamentoViewModel lancamento)
         {
             var model = ObterLancamentoComCategorias();
             try
@@ -134,12 +134,13 @@ namespace managemoney.Controllers
             try
             {
                 _lancamentoRepository.Remover(id);
-                return View(ConstantesDasViews.ViewLancamentos, _mapper.Map<List<LancamentosViewModel>>(_lancamentoRepository.ObterTodos()));
+                var lancamentos = _mapper.Map<LancamentosViewModel>(_lancamentoRepository.ObterTodos());
+                return View(ConstantesDasViews.ViewLancamentos, lancamentos);
             }
             catch (Exception)
             {
                 var lancamento = _lancamentoRepository.ObterPorId(id);
-                var lancamentosView = _mapper.Map<List<LancamentosViewModel>>(lancamento);
+                var lancamentosView = _mapper.Map<DetalhesViewModel>(lancamento);
                 return View(ConstantesDasViews.ViewDetalhesLancamento, lancamentosView);
             }
         }

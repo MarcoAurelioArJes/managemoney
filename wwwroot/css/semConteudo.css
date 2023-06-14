@@ -1,0 +1,13 @@
+﻿.contentNaoExisteItens {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #31a162;
+    height: 30rem;
+    width: 40rem;
+    margin: 2.4rem auto;
+    font-size: 2rem;
+    color: #9e9d9d;
+    border-radius: .3rem;
+    background-color: #e6f7ee;
+}

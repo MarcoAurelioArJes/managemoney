@@ -1,0 +1,48 @@
+﻿<nav id="cabecalho">
+    <div id="cabecalho_Conteudo">
+        <div id="cabecalho_Conteudo_Logo">
+            <a id="cabecalho_Conteudo_Logo_Link" asp-controller="lancamento" asp-action="lancamentos">
+                <img src="~/img/Geral/logo_oficial_nome.svg" id="cabecalho_Conteudo_Logo_Link_Img" alt="">
+            </a>
+        </div>
+        <ul id="cabecalho_Conteudo_Menu">
+            <li class="cabecalho_Conteudo_Menu_Option">
+                <a asp-controller="lancamento" asp-action="lancamentos" class="cabecalho_Conteudo_Menu_Option_Link"> Lançamentos </a>
+            </li>
+            <li class="cabecalho_Conteudo_Menu_Option">
+                <a asp-controller="categoria" asp-action="categorias" class="cabecalho_Conteudo_Menu_Option_Link"> Categorias </a>
+            </li>
+            <li class="cabecalho_Conteudo_Menu_Option">
+                <a href="" class="cabecalho_Conteudo_Menu_Option_Link"> Olá, @Context.User.Identity.Name! </a>
+                <div id="cabecalho_Conteudo_Menu_Option_Dropdown">
+                    <ul id="cabecalho_Conteudo_Menu_Option_Dropdown_Menu">
+                        <li>
+                            <div id="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Perfil">
+                                <img src="~/img/Geral/perfil_IMG.webp" id="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Perfil_Img" alt="" />
+                                <div id="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Perfil_Texto">
+                                    <span id="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Perfil_Texto_Nome">Bem Vindo @Context.User.Identity.Name!</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Option">
+                            <a href="" class="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Option_Link"> Minha Conta </a>
+                        </li>
+                        <li class="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Option">
+                            <a href="" class="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Option_Link"> Configurações </a>
+                        </li>
+                        <li id="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_NightMode">
+                            <div>
+                                <input type="checkbox" id="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_NightMode_Chave">
+                                <label id="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_NightMode_Chave2" for="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_NightMode_Chave"></label>
+                            </div>
+                            <span> Modo Noturno </span>
+                        </li>
+                        <li class="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Option">
+                            <a asp-controller="usuario" asp-action="logout" class="cabecalho_Conteudo_Menu_Option_Dropdown_Menu_Option_Link"> Sair </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

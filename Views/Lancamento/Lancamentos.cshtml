@@ -1,38 +1,63 @@
-﻿@model List<LancamentosViewModel>
+﻿@model LancamentosViewModel
 @{
     ViewData["Title"] = "Lista Lançamentos";
 }
 
 <main class="mainListaLancamentos">
+    <h2 class="titulo">Lançamentos</h2>
+    <section class="containerInformacoesGeraisLancamento">
+        <table class="tabelaInformacoesLancamento">
+            <thead class="cabecalhoTabelaInfoLancamento">
+            <th class="itemCabecalhoTabelaInfoLancamento">Gastos</th>
+            <th class="itemCabecalhoTabelaInfoLancamento">Ganhos</th>
+            <th class="itemCabecalhoTabelaInfoLancamento">Carteira</th>
+            </thead>
+            <tbody class="corpoTabelaInfoLancamento">
+                <tr class="linhaCorpoTabelaInfoLancamento">
+                    <td class="itemCorpoTabelaInfoLancamento gastos">R$ <span>@Model.Gastos</span></td>
+                    <td class="itemCorpoTabelaInfoLancamento ganhos">R$ <span>@Model.Ganhos</span></td>
+                    <td class="itemCorpoTabelaInfoLancamento @(Model.Carteira < decimal.Zero ? "negativo" : "carteira") ">R$ <span>@Model.Carteira</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
     <section class="conteudoPrincipalListagem">
-        <h2 class="titulo">Lançamentos</h2>
         <div class="containerListaLancamentos">
             <a class="botao botaoCriarNovo" asp-controller="lancamento" asp-action="cadastrarLancamento">
                 Novo lançamento
             </a>
         </div>
-        <ul class="listaDeLancamentos">
-            @foreach (var lancamento in Model)
-            {
-                <li id="@lancamento.Id" class="itemListaDeLancamentos">
-                    <div>
-                        <p>
-                            Valor: @lancamento.Valor
-                        </p>
-                        <p>
-                            Data: @lancamento.DataLancamento.ToString("dd/MM/yyyy")
-                        </p>
-                        <p>
-                            Tipo de lançamento: @lancamento.TipoDeLancamento
-                        </p>
-                    </div>
-                    <div class="containerDeBotoes">
-                        <a asp-controller="lancamento" asp-action="detalhesLancamento" asp-route-id="@lancamento.Id" class="botao btnVisualizar">
-                            Editar
-                        </a>
-                    </div>
-                </li>
-            }
-        </ul>
+        @if(Model.Itens.Count() > 0)
+        {
+            <ul class="listaDeLancamentos">
+                @foreach (var lancamento in Model.Itens)
+                {
+                    <li id="@lancamento.Id" class="itemListaDeLancamentos @lancamento.TipoDeLancamento">
+                        <div>
+                            <p>
+                                Valor: @lancamento.Valor
+                            </p>
+                            <p>
+                                Data: @lancamento.DataLancamento.ToString("dd/MM/yyyy")
+                            </p>
+                            <p>
+                                Tipo de lançamento: @lancamento.TipoDeLancamento
+                            </p>
+                        </div>
+                        <div class="containerDeBotoes">
+                            <a asp-controller="lancamento" asp-action="detalhesLancamento" asp-route-id="@lancamento.Id" class="botao btnVisualizar">
+                                Visualizar
+                            </a>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            ViewData["SemConteudoAtual"] = "LANÇAMENTOS";
+            <partial name="_SemConteudoPartial" />
+        }
     </section>
 </main>

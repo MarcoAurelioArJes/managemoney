@@ -36,7 +36,7 @@
 
 .itemListaCategorias {
     display: flex;
-    border: 2px solid #31a162;
+    border: 1px solid #31a162;
     border-radius: 5px;
     background-color: #e6f7ee;
     height: 2rem;

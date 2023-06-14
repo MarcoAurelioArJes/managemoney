@@ -1,0 +1,43 @@
+﻿#sobre_Conteudo {
+    display: flex;
+    width: 87%;
+    margin: 8rem 4rem;
+    justify-content: center;
+}
+
+#sobre_Conteudo_Texto {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    color: #515154;
+}
+
+#sobre_Conteudo_Texto_Titulo {
+    font-size: 5rem;
+    font-weight: 600;
+}
+
+#sobre_Conteudo_Texto_Paragrafo {
+    width: 90%;
+    margin-top: 3rem;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+
+#sobre_Conteudo_Img_Div {
+    width: 50%;
+    /* margin-left: 5rem; */
+}
+
+#sobre_Conteudo_Img {
+    width: 45rem;
+    height: auto;
+}
+
+
+#sobre_Conteudo_Equipe {
+    display: flex;
+    margin: 8rem 7rem;
+    border-top: 0.1rem solid #d9d9d9;
+}

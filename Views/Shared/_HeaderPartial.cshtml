@@ -1,65 +1,14 @@
-<header id="home" class="cabecalho">
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <link rel="stylesheet" href="~/css/cabecalhoInterno.css"/>
+    ViewData["CabecalhoAtual"] = "_CabecalhoInternoPartial";
+}
+else
+{
+    <link rel="stylesheet" href="~/css/cabecalhoExterno.css" />
+    ViewData["CabecalhoAtual"] = "_CabecalhoExternoPartial";
+}
 
-    <div id="cabecalhoLogoDiv">
-        <a id="cabecalhoLogo" asp-action="Inicio">
-            <img src="~/img/Geral/logo3.svg" id="logoNome" alt="">
-            Manage Money
-        </a>
-    </div>
-
-    <div id="cabecalhoNav">
-        <nav>
-            <ul>
-                @if (Context.User.Identity.IsAuthenticated)
-                {
-                    <li>
-                        <a class="fundoVerde">
-                            Olá, <b>@Context.User.Identity.Name</b>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a asp-controller="lancamento" asp-action="lancamentos" class="linksCabecalho">
-                            Lançamento
-                        </a>
-                    </li>
-
-                    <li>
-                        <a asp-controller="categoria" asp-action="categorias" class="linksCabecalho">
-                            Categoria
-                        </a>
-                    </li>
-
-                    <li>
-                        <a asp-controller="usuario" asp-action="logout" class="linksCabecalho">
-                            Sair
-                        </a>
-                    </li>
-                }
-                else 
-                {
-                    <li>
-                        <a href="#sobre" class="linksCabecalho">
-                            Sobre
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#contato" class="linksCabecalho">
-                            Contato
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="inicio" asp-action="login" class="linksCabecalho">
-                            Entrar
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="inicio" asp-action="cadastro" id="cadastroNav" class="linksCabecalho">
-                            Cadastre-se
-                        </a>
-                    </li>
-                }
-            </ul>
-        </nav>
-    </div>
+<header>
+    <partial name="@ViewData["CabecalhoAtual"]" />
 </header>

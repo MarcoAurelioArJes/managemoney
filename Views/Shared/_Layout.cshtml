@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"] - ManagaMoney</title>
     <link rel="stylesheet" href="~/css/global.css" />
-    <link rel="stylesheet" href="~/css/cabecalho.css" />
     <link rel="stylesheet" href="~/css/rodape.css" />
     <link rel="stylesheet" href="~/css/inicio.css" />
     <link rel="stylesheet" href="~/css/cadastroUsuario.css" />
@@ -15,6 +14,8 @@
     <link rel="stylesheet" href="~/css/cadastroCategoria.css" />
     <link rel="stylesheet" href="~/css/detalhes.css" />
     <link rel="stylesheet" href="~/css/listaCategorias.css" />
+    <link rel="stylesheet" href="~/css/sobre.css" />
+    <link rel="stylesheet" href="~/css/semConteudo.css" />
 </head>
 <body>
     <partial name="_HeaderPartial" />
@@ -77,6 +78,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/cabecalho.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

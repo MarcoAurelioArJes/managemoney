@@ -41,11 +41,16 @@ namespace ManageMoney.Controllers
             return RetornoViewPadraoSeUsuarioEstiverAutenticado() ?? View();
         }
 
+        public IActionResult Sobre()
+        {
+            return RetornoViewPadraoSeUsuarioEstiverAutenticado() ?? View();
+        }
+
         public ViewResult RetornoViewPadraoSeUsuarioEstiverAutenticado()
         {
             var lancamentos = _lancamentoRepository.ObterTodos();
             if (_contextoDoUsuario.UsuarioEstaAutenticado())
-                return View(ConstantesDasViews.ViewLancamentos, _mapper.Map<List<LancamentosViewModel>>(lancamentos));
+                return View(ConstantesDasViews.ViewLancamentos, new LancamentosViewModel(lancamentos));
 
             return null;
         }

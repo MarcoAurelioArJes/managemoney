@@ -27,12 +27,24 @@
 
 .listaDeLancamentos {
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.itemListaDeLancamentos{
+.itemListaDeLancamentos {
     display: flex;
     background-color: #d8f0da;
     border : 1px solid #4bb550;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    justify-content: space-between;
+}
+
+.itemListaDeLancamentos.Despesa {
+    display: flex;
+    background-color: #ffbebe;
+    border: 1px solid #F00;
     padding: 20px;
     margin-top: 15px;
     border-radius: 5px;
@@ -63,4 +75,68 @@
 
 .btnEditar {
     background-color: #d5e6d5;
+}
+
+
+/*CSS INFORMACOES GERAIS LANCAMENTO*/
+.containerInformacoesGeraisLancamento {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+
+.tabelaInformacoesLancamento {
+    width: 742.594px;
+    border-radius: 1rem;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.cabecalhoTabelaInfoLancamento {
+    font-size: .8rem;
+}
+
+    .cabecalhoTabelaInfoLancamento :nth-child(1) {
+        border-radius: .3rem 0 0 0;
+    }
+
+    .cabecalhoTabelaInfoLancamento :nth-child(3) {
+        border-radius: 0 .3rem 0 0;
+    }
+
+.linhaCorpoTabelaInfoLancamento :nth-child(1) {
+    border-radius: 0 0 0 .3rem;
+}
+
+.linhaCorpoTabelaInfoLancamento :nth-child(3) {
+    border-radius: 0 0 .3rem 0;
+}
+
+.itemCabecalhoTabelaInfoLancamento {
+    border: solid 1px #1d6121;
+    background-color: #4bb550;
+    padding: 0.1rem;
+}
+
+.itemCorpoTabelaInfoLancamento {
+    padding: .5rem;
+    border: solid 1px #1d6121;
+    text-align: center;
+}
+
+.itemCorpoTabelaInfoLancamento.gastos {
+    background-color: #ffa8a8;
+}
+
+.itemCorpoTabelaInfoLancamento.ganhos {
+    background-color: #afffc4;
+}
+
+.itemCorpoTabelaInfoLancamento.carteira {
+    background-color: #b4dfff;
+}
+
+.itemCorpoTabelaInfoLancamento.negativo {
+    background-color: #ef7373;
 }

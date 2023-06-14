@@ -38,5 +38,10 @@ namespace managemoney.Helpers
             }
             return false;
         }
+
+        public UsuarioModel ObterUsuarioAtual()
+        {
+            return _usermanager.Users.FirstOrDefault(c => c.NormalizedEmail == _httpContext.User.Identity.Name.ToUpper());
+        }
     }
 }
