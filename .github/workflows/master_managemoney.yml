@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'ManageMoney'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4C2CB2754BAD4281B20949F10397CBDF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6BC347DB27474613AECB28EA777C5F38 }}
           package: .
