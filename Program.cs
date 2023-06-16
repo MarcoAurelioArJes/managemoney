@@ -62,7 +62,4 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
-var scope = app.Services.CreateScope();
-scope.ServiceProvider.GetService<ApplicationContext>().Database.Migrate();  
-
 app.Run();
