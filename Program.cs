@@ -9,11 +9,11 @@ using managemoney.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//var stringDeConexao = OperatingSystem.IsLinux() ? builder.Configuration.GetConnectionString("Default") 
-//                                                    : builder.Configuration.GetConnectionString("Local");
+var stringDeConexao = OperatingSystem.IsLinux() ? builder.Configuration.GetConnectionString("Default") 
+                                                    : builder.Configuration.GetConnectionString("Local");
 
 builder.Services.AddDbContext<ApplicationContext>(o => {
-    o.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoAZ"));
+    o.UseSqlServer(stringDeConexao);
 });
 
 builder
